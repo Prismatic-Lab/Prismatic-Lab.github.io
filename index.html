@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0f">
+  <meta name="color-scheme" content="dark light">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="Sivr Team">
+  <meta name="application-name" content="Sivr">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
   <meta
     name="description"
     content="Sivr — privacy-focused, end-to-end encrypted communication."
   >
-  <link rel="stylesheet" herf="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <title>Sivr — Private Communication</title>
+  <meta name="keywords" content="Sivr, encrypted chat, privacy, end-to-end encryption, hack.chat, secure messaging">
 
   <style>
     :root{
@@ -915,11 +922,166 @@
       }
 
     }
+
+    :focus-visible{
+      outline:2px solid var(--accent);
+      outline-offset:4px;
+    }
+
+    button,
+    a{
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .skip-link{
+      position:fixed;
+      left:14px;
+      top:10px;
+      z-index:1000;
+      transform:translateY(-160%);
+      padding:10px 14px;
+      border-radius:10px;
+      background:var(--text);
+      color:var(--bg);
+      font-weight:800;
+      transition:transform .2s;
+    }
+
+    .skip-link:focus{
+      transform:none;
+    }
+
+    .eyebrow{
+      text-transform:uppercase;
+    }
+
+    .readme article{
+      max-width:980px;
+      margin:auto;
+    }
+
+    .readme h4{
+      font-size:1.18rem;
+      letter-spacing:-.015em;
+    }
+
+    .readme p{
+      margin:0 0 18px;
+    }
+
+    .readme code{
+      padding:.12em .35em;
+      border-radius:6px;
+      background:var(--surface2);
+      color:var(--text);
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      font-size:.88em;
+    }
+
+    .readme pre{
+      margin:18px 0 24px;
+      padding:18px;
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:var(--bg);
+      color:var(--text);
+      font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+    }
+
+    .readme pre code{
+      padding:0;
+      background:transparent;
+    }
+
+    .readme table{
+      width:100%;
+      border-collapse:collapse;
+      margin:20px 0 28px;
+      font-size:.9rem;
+    }
+
+    .readme th,
+    .readme td{
+      padding:11px 12px;
+      text-align:left;
+      vertical-align:top;
+      border-bottom:1px solid var(--line);
+    }
+
+    .readme th{
+      color:var(--text);
+      font-weight:800;
+    }
+
+    .readme .note{
+      margin:20px 0;
+      padding:16px 18px;
+      border:1px solid var(--line);
+      border-left:3px solid var(--accent);
+      border-radius:12px;
+      background:var(--surface2);
+    }
+
+    .readme .toc{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px 18px;
+      margin:18px 0 34px;
+      padding:18px 20px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:var(--bg);
+    }
+
+    .readme .toc a{
+      color:var(--muted);
+    }
+
+    .readme .toc a:hover{
+      color:var(--accent);
+    }
+
+    .readme .check{
+      color:var(--accent);
+      font-weight:800;
+    }
+
+    @media(max-width:700px){
+      .readme .toc{
+        grid-template-columns:1fr;
+      }
+
+      .readme table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{
+        scroll-behavior:auto;
+      }
+
+      *,
+      *::before,
+      *::after{
+        transition:none !important;
+        animation:none !important;
+      }
+
+      .reveal{
+        opacity:1;
+        transform:none;
+      }
+    }
   </style>
 </head>
 
 
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <!-- =========================
        HEADER
@@ -927,7 +1089,7 @@
 
   <header>
 
-    <nav class="nav wrap">
+    <nav class="nav wrap" aria-label="Primary navigation">
 
       <a class="brand" href="#top">
 
@@ -967,7 +1129,7 @@
       </div>
 
 
-      <button
+      <button type="button"
         id="theme"
         class="theme"
         aria-label="Toggle theme"
@@ -980,14 +1142,14 @@
   </header>
 
 
-  <main id="top">
+  <main id="top" tabindex="-1" aria-label="Sivr documentation and project overview">
 
 
     <!-- =========================
          HERO
     ========================= -->
 
-    <section class="hero wrap">
+    <section id="main-content" class="hero wrap" aria-labelledby="hero-title">
 
       <div class="hero-copy reveal">
 
@@ -996,7 +1158,7 @@
         </div>
 
 
-        <h1>
+        <h1 id="hero-title">
           Communication,<br>
           <em>without the relay.</em>
         </h1>
@@ -1033,6 +1195,7 @@
 
       <div
         class="hero-symbol reveal"
+        role="img"
         aria-label="Sivr symbol"
       >
 
@@ -1109,6 +1272,7 @@
 
     <section
       id="about"
+      aria-labelledby="about-heading"
       class="section wrap"
     >
 
@@ -1119,7 +1283,7 @@
         </div>
 
 
-        <h2>
+        <h2 id="about-heading">
           A private communication layer.
         </h2>
 
@@ -1217,6 +1381,7 @@
 
     <section
       id="security"
+      aria-labelledby="security-heading"
       class="security"
     >
 
@@ -1229,7 +1394,7 @@
           </div>
 
 
-          <h2>
+          <h2 id="security-heading">
             Trust is established by the clients.
           </h2>
 
@@ -1319,6 +1484,7 @@
 
     <section
       id="technical"
+      aria-labelledby="technical-heading"
       class="section wrap"
     >
 
@@ -1329,7 +1495,7 @@
         </div>
 
 
-        <h2>
+        <h2 id="technical-heading">
           Security lives inside the client.
         </h2>
 
@@ -1555,6 +1721,7 @@
 
     <section
       id="downloads"
+      aria-labelledby="downloads-heading"
       class="downloads"
     >
 
@@ -1568,7 +1735,7 @@
           </div>
 
 
-          <h2>
+          <h2 id="downloads-heading">
             Take Sivr with you.
           </h2>
 
@@ -1589,9 +1756,8 @@
           <article class="download-card reveal">
 
             <div class="platform-icon">
-              <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Android</title><path d="M18.4395 5.5586c-.675 1.1664-1.352 2.3318-2.0274 3.498-.0366-.0155-.0742-.0286-.1113-.043-1.8249-.6957-3.484-.8-4.42-.787-1.8551.0185-3.3544.4643-4.2597.8203-.084-.1494-1.7526-3.021-2.0215-3.4864a1.1451 1.1451 0 0 0-.1406-.1914c-.3312-.364-.9054-.4859-1.379-.203-.475.282-.7136.9361-.3886 1.5019 1.9466 3.3696-.0966-.2158 1.9473 3.3593.0172.031-.4946.2642-1.3926 1.0177C2.8987 12.176.452 14.772 0 18.9902h24c-.119-1.1108-.3686-2.099-.7461-3.0683-.7438-1.9118-1.8435-3.2928-2.7402-4.1836a12.1048 12.1048 0 0 0-2.1309-1.6875c.6594-1.122 1.312-2.2559 1.9649-3.3848.2077-.3615.1886-.7956-.0079-1.1191a1.1001 1.1001 0 0 0-.8515-.5332c-.5225-.0536-.9392.3128-1.0488.5449zm-.0391 8.461c.3944.5926.324 1.3306-.1563 1.6503-.4799.3197-1.188.0985-1.582-.4941-.3944-.5927-.324-1.3307.1563-1.6504.4727-.315 1.1812-.1086 1.582.4941zM7.207 13.5273c.4803.3197.5506 1.0577.1563 1.6504-.394.5926-1.1038.8138-1.584.4941-.48-.3197-.5503-1.0577-.1563-1.6504.4008-.6021 1.1087-.8106 1.584-.4941z"/></svg>
-</svg>
+              <svg role="img" aria-label="Android" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+  <title>Android</title><path d="M18.4395 5.5586c-.675 1.1664-1.352 2.3318-2.0274 3.498-.0366-.0155-.0742-.0286-.1113-.043-1.8249-.6957-3.484-.8-4.42-.787-1.8551.0185-3.3544.4643-4.2597.8203-.084-.1494-1.7526-3.021-2.0215-3.4864a1.1451 1.1451 0 0 0-.1406-.1914c-.3312-.364-.9054-.4859-1.379-.203-.475.282-.7136.9361-.3886 1.5019 1.9466 3.3696-.0966-.2158 1.9473 3.3593.0172.031-.4946.2642-1.3926 1.0177C2.8987 12.176.452 14.772 0 18.9902h24c-.119-1.1108-.3686-2.099-.7461-3.0683-.7438-1.9118-1.8435-3.2928-2.7402-4.1836a12.1048 12.1048 0 0 0-2.1309-1.6875c.6594-1.122 1.312-2.2559 1.9649-3.3848.2077-.3615.1886-.7956-.0079-1.1191a1.1001 1.1001 0 0 0-.8515-.5332c-.5225-.0536-.9392.3128-1.0488.5449zm-.0391 8.461c.3944.5926.324 1.3306-.1563 1.6503-.4799.3197-1.188.0985-1.582-.4941-.3944-.5927-.324-1.3307.1563-1.6504.4727-.315 1.1812-.1086 1.582.4941zM7.207 13.5273c.4803.3197.5506 1.0577.1563 1.6504-.394.5926-1.1038.8138-1.584.4941-.48-.3197-.5503-1.0577-.1563-1.6504.4008-.6021 1.1087-.8106 1.584-.4941z"/></svg>
             </div>
 
 
@@ -1618,6 +1784,7 @@
               class="download-btn"
               href="files/app-release.apk"
               download
+              aria-label="Download Sivr for Android"
             >
 
               <span>
@@ -1638,9 +1805,7 @@
           <article class="download-card reveal">
 
             <div class="platform-icon">
-              <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
- <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Apple</title><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
-</svg>
+              <svg role="img" aria-label="Apple" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="32" height="32"><title>Apple</title><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
             </div>
 
 
@@ -1667,6 +1832,7 @@
               class="download-btn"
               href="files/Sivr_0.1.0_aarch64.dmg"
               download
+              aria-label="Download Sivr for macOS"
             >
 
               <span>
@@ -1716,6 +1882,7 @@
               class="download-btn"
               href="files/Sivr_0.1.0_x64-setup.exe"
               download
+              aria-label="Download Sivr for Windows"
             >
 
               <span>
@@ -1756,6 +1923,7 @@
 
     <section
       id="readme"
+      aria-labelledby="readme-heading"
       class="section wrap"
     >
 
@@ -1766,7 +1934,7 @@
         </div>
 
 
-        <h2>
+        <h2 id="readme-heading">
           Sivr in brief.
         </h2>
 
@@ -1783,7 +1951,7 @@
           <span></span>
 
 
-          <button id="copy">
+          <button type="button" id="copy">
             Copy
           </button>
 
@@ -1791,151 +1959,288 @@
 
 
         <article id="readmeText">
-
-
-          <h3>
-            Sivr
-          </h3>
-
+          <h3>Sivr</h3>
 
           <p>
-            Sivr is a privacy-focused, end-to-end encrypted
-            chat client built on top of a lightweight
-            relay-based infrastructure. It is designed to
-            provide secure, authenticated communication while
-            keeping message content inaccessible to the relay
-            server.
+            Sivr is a privacy-focused chat client that adds an application-layer
+            secure messaging protocol to the hack.chat transport model. The project
+            is built around a client-centric security boundary: identity, key
+            derivation, packet authentication, replay validation, decryption and
+            security-sensitive message validation are performed by the client.
           </p>
 
+          <div class="note">
+            <strong>Project status.</strong>
+            This repository contains a functional client implementation and test
+            infrastructure. The project documentation does not claim an independent
+            security audit, formal verification, or production security certification.
+          </div>
+
+          <h4 id="readme-overview">Overview</h4>
+          <p>
+            Sivr uses React and TypeScript for the application UI, the Web Crypto API
+            for cryptographic primitives, IndexedDB for persistent client-side state,
+            and a hack.chat-compatible WebSocket transport. Android packaging is
+            provided through Capacitor, while desktop packaging is provided through
+            Tauri.
+          </p>
 
           <p>
-            The project places emphasis on client-side
-            security, cryptographic identity verification,
-            and protection against message replay and
-            unauthorized access.
+            A normal session begins with a server address, room name, nickname and
+            optional shared password. The client loads or creates a persistent Ed25519
+            identity, derives an AES-256-GCM room key from the shared password and room,
+            connects to the relay, and then performs the Sivr secure-channel handshake.
           </p>
 
-
-          <h4>
-            Core principles
-          </h4>
-
-
+          <h4 id="readme-capabilities">Key capabilities</h4>
           <ul>
-
-            <li>
-              Messages are encrypted before transmission.
-            </li>
-
-            <li>
-              Cryptographic identities can be verified
-              through fingerprints.
-            </li>
-
-            <li>
-              The relay transports encrypted data without
-              requiring readable message content.
-            </li>
-
-            <li>
-              Message sequencing provides replay protection.
-            </li>
-
-            <li>
-              Security-sensitive operations remain client-side.
-            </li>
-
+            <li>End-to-end encrypted room messaging using AES-256-GCM.</li>
+            <li>Persistent Ed25519 identity and SHA-256 public-key fingerprints.</li>
+            <li>Signed and verified <code>hello</code> packets.</li>
+            <li>Trust-On-First-Use fingerprint verification with a local trust registry.</li>
+            <li>Persisted per-peer sequence tracking for replay protection.</li>
+            <li>Authenticated presence discovery and member status reporting.</li>
+            <li>Automatic reconnect and local state recovery.</li>
+            <li>QR generation/scanning for room and profile workflows.</li>
+            <li>Local room-history export as UTF-8 plain text.</li>
+            <li>Responsive Material UI with light/dark themes.</li>
+            <li>Capacitor Android and Tauri desktop packaging.</li>
           </ul>
 
-
-          <h4>
-            Architecture
-          </h4>
-
-
+          <h4 id="readme-security">Security model</h4>
           <p>
-            Sivr uses a client-centric security model.
-            The client handles identity, encryption,
-            authentication and message validation, while
-            the relay primarily provides message transport.
+            Sivr separates <strong>transport</strong> from <strong>trust</strong>.
+            The relay carries hack.chat-compatible traffic; the client performs the
+            security-sensitive operations before readable message content reaches the UI.
           </p>
 
+          <table>
+            <thead>
+              <tr><th>Responsibility</th><th>Sivr client</th><th>Relay</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Room transport</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Password-to-key derivation</td><td>✓</td><td>—</td></tr>
+              <tr><td>Message encryption/decryption</td><td>✓</td><td>—</td></tr>
+              <tr><td>Message signing/verification</td><td>✓</td><td>—</td></tr>
+              <tr><td>Identity and trust decisions</td><td>✓</td><td>—</td></tr>
+              <tr><td>Replay validation</td><td>✓</td><td>—</td></tr>
+              <tr><td>Message rendering</td><td>✓</td><td>—</td></tr>
+            </tbody>
+          </table>
 
-          <h4>
-            Technical Overview
-          </h4>
-
-
+          <h4 id="readme-crypto">Cryptographic design</h4>
           <p>
-            SIVR extends the hack.chat protocol through an
-            application-layer secure messaging protocol
-            implemented entirely inside the client.
+            The cryptographic implementation is built on the browser/platform Web
+            Crypto API rather than a third-party cryptography library.
           </p>
-
-
           <ul>
-
-            <li>
-              End-to-end AES-256-GCM encrypted messaging.
-            </li>
-
-            <li>
-              Ed25519 digital signatures for sender
-              authentication.
-            </li>
-
-            <li>
-              Stable client identity backed by persistent
-              cryptographic keys.
-            </li>
-
-            <li>
-              Trust-On-First-Use (TOFU) fingerprint verification.
-            </li>
-
-            <li>
-              Replay attack protection using trusted peer
-              sequence tracking.
-            </li>
-
-            <li>
-              Authenticated secure presence discovery.
-            </li>
-
-            <li>
-              Automatic reconnection with state recovery.
-            </li>
-
-            <li>
-              Markdown rendering after successful verification
-              and decryption.
-            </li>
-
-            <li>
-              No server-side cryptography or protocol
-              modifications.
-            </li>
-
+            <li><strong>PBKDF2-SHA-256:</strong> 250,000 iterations for room-key derivation.</li>
+            <li><strong>AES-256-GCM:</strong> authenticated encryption for message bodies and protocol payloads.</li>
+            <li><strong>Ed25519:</strong> persistent client identity and digital signatures.</li>
+            <li><strong>SHA-256:</strong> public-key fingerprint generation.</li>
+            <li><strong>HKDF-SHA-256:</strong> derivation of the per-packet AES key from a sender fingerprint.</li>
           </ul>
 
-
           <p>
-            Every encrypted message is authenticated before
-            being displayed. Invalid signatures, replayed
-            packets from trusted peers, malformed packets,
-            and failed decryptions are rejected before reaching
-            the user interface.
+            Room encryption uses a key derived from the shared password and normalized
+            channel name. Message strings use fresh 12-byte random GCM IVs.
           </p>
 
+          <div class="note">
+            <strong>Important:</strong> the embedded key used by the <code>efp</code>
+            fingerprint wrapper is shipped with the client. It is an obfuscation layer,
+            not a secret cryptographic key. Peer authentication is provided by the
+            Ed25519 signature and public-key/fingerprint consistency checks.
+          </div>
+
+          <h4 id="readme-protocol">SIVR protocol</h4>
+          <p>
+            The current implementation advertises protocol version 2 with
+            <code>aes-256-gcm</code>, <code>ed25519</code>, and
+            <code>presence-v1</code> features. The wire representation is:
+          </p>
+          <pre><code>[SIVR:1] efp:encryptedPacket</code></pre>
 
           <p>
-            The protocol is designed to operate transparently
-            over the standard hack.chat transport, allowing
-            secure clients to communicate without requiring
-            any changes to the existing server implementation.
+            The receiver recovers the fingerprint from the outer field, derives a
+            per-packet key with HKDF-SHA-256, decrypts the inner packet, validates its
+            semantics, verifies signatures where required, applies freshness/sequence
+            checks, and only then decrypts and renders message content.
           </p>
 
+          <h4 id="readme-identity">Identity and trust</h4>
+          <p>
+            On first launch Sivr generates an Ed25519 key pair and persists it in
+            IndexedDB. The SHA-256 digest of the public key becomes the user's
+            cryptographic fingerprint. Trusted fingerprints are also stored locally.
+          </p>
+          <p>
+            The trust model is TOFU: observing a key for the first time does not by
+            itself prove that the key belongs to the intended person. Users who need
+            stronger identity assurance should compare fingerprints through an
+            independent trusted channel.
+          </p>
 
+          <h4 id="readme-replay">Replay protection</h4>
+          <ul>
+            <li>Outbound <code>message</code> packets advance the local sequence counter.</li>
+            <li><code>hello</code> and <code>presence</code> packets do not consume sequence numbers.</li>
+            <li>Local sequence state is persisted across restarts.</li>
+            <li>Trusted peer receive counters are persisted locally.</li>
+            <li>Previously accepted sequence values are rejected when replayed.</li>
+          </ul>
+
+          <h4 id="readme-transport">Transport</h4>
+          <p>
+            The transport layer is implemented in
+            <code>src/services/network/hackchat.ts</code>. It manages the
+            hack.chat-compatible JSON/WebSocket connection, room membership,
+            reconnect behavior, and server/system events. Sivr's secure protocol
+            remains layered above that transport.
+          </p>
+
+          <h4 id="readme-storage">Local storage and privacy</h4>
+          <p>
+            IndexedDB is used for persistent client-side state such as identity
+            material, trusted fingerprints, sequence state and preferences. The
+            Login flow also supports remembering the last server, room and shared
+            password when the user explicitly enables that option.
+          </p>
+
+          <h4 id="readme-history">Room history export</h4>
+          <p>
+            The Members page can save the messages currently available on the device
+            as a UTF-8 plain-text file. The Tauri desktop implementation writes the
+            export into the user's Downloads directory and sanitizes the requested
+            filename to prevent path traversal and accidental overwrite.
+          </p>
+
+          <h4 id="readme-qr">QR workflows</h4>
+          <p>
+            Sivr provides room/profile QR generation and a camera-based scanner.
+            Room QR data contains server and room information and does not contain
+            the shared room password. The scanner requests camera permission and
+            can switch between detected cameras.
+          </p>
+
+          <h4 id="readme-architecture">Architecture</h4>
+          <pre><code>React UI
+  │
+  ├── Login / Chat / Members / Profile
+  ├── Zustand stores
+  │
+  ▼
+SecureChannel
+  ├── identity
+  ├── key derivation
+  ├── signatures
+  ├── encryption/decryption
+  ├── replay protection
+  └── member/trust state
+  │
+  ├───────────────┐
+  ▼               ▼
+Protocol       HackChatConnection
+  │               │
+  ▼               ▼
+Crypto          WebSocket
+  │
+  ▼
+Web Crypto API
+
+Persistent state → IndexedDB</code></pre>
+
+          <h4 id="readme-stack">Technology stack</h4>
+          <ul>
+            <li>React 19 + TypeScript</li>
+            <li>Vite</li>
+            <li>React Router</li>
+            <li>Material UI</li>
+            <li>Zustand</li>
+            <li>Web Crypto API</li>
+            <li>IndexedDB via <code>idb</code></li>
+            <li><code>marked</code> + <code>DOMPurify</code> for message rendering</li>
+            <li>QRCode / jsQR utilities</li>
+            <li>Capacitor 8 for Android</li>
+            <li>Tauri 2 for desktop</li>
+          </ul>
+
+          <h4 id="readme-platforms">Packaging targets</h4>
+          <ul>
+            <li><strong>Web:</strong> Vite production bundle in <code>dist/</code>.</li>
+            <li><strong>Android:</strong> Capacitor with application ID <code>app.sivr.client</code>.</li>
+            <li><strong>Desktop:</strong> Tauri 2 with native packaging configuration and local history export.</li>
+          </ul>
+
+          <h4 id="readme-development">Development</h4>
+          <p>Install dependencies:</p>
+          <pre><code>npm install</code></pre>
+          <p>Start development:</p>
+          <pre><code>npm run dev</code></pre>
+          <p>Type-check, lint, and build:</p>
+          <pre><code>npm run typecheck
+npm run lint
+npm run build</code></pre>
+
+          <h4 id="readme-testing">Testing</h4>
+          <p>
+            The repository's test script runs the cryptographic, integration,
+            wire-format, reconnect, and live-server suites. An in-process fake
+            hack.chat server is also included for deterministic protocol testing.
+          </p>
+          <pre><code>npm test</code></pre>
+
+          <h4 id="readme-limitations">Security considerations and limitations</h4>
+          <ul>
+            <li>No independent audit or formal verification claim is made.</li>
+            <li>The room key depends on the shared password and channel name.</li>
+            <li>TOFU is not equivalent to out-of-band identity verification.</li>
+            <li>The fingerprint obfuscation key is embedded in the client and is not secret.</li>
+            <li>The relay remains part of the communication path and metadata/traffic analysis are not claimed to be hidden.</li>
+            <li>Compromise of the local device can undermine client-side protections.</li>
+            <li>Exported room history is plaintext.</li>
+            <li>The current documentation makes no claim of forward secrecy.</li>
+          </ul>
+
+          <h4 id="readme-structure">Project structure</h4>
+          <pre><code>src/
+├── components/
+├── hooks/
+├── pages/
+├── services/
+│   ├── crypto/
+│   ├── network/
+│   └── protocol/
+├── store/
+├── theme/
+├── types/
+└── utils/
+resources/android/
+scripts/
+src-tauri/
+.github/
+capacitor.config.json
+vite.config.ts
+package.json</code></pre>
+
+          <h4 id="readme-contributing">Contributing</h4>
+          <ol>
+            <li>Keep cryptographic operations inside the dedicated crypto/protocol layers.</li>
+            <li>Do not move secrets into network logs or unnecessary UI state.</li>
+            <li>Preserve canonical packet serialization when changing signed data.</li>
+            <li>Treat protocol-version changes as interoperability changes.</li>
+            <li>Add regression tests for security-sensitive behavior.</li>
+            <li>Document changes to packet structure, sequence semantics, trust behavior, and persistent storage.</li>
+          </ol>
+
+          <h4 id="readme-license">License and attribution</h4>
+          <p>
+            The supplied repository metadata does not specify a project license.
+            Do not assume an open-source license solely because the source is
+            available. Check the repository's license files and dependency licenses
+            before redistribution.
+          </p>
         </article>
 
       </div>
@@ -1955,7 +2260,7 @@
     <div class="wrap foot">
 
       <span>
-        © <span id="year"></span> Sivr
+        © <span id="year" aria-label="Current year"></span> Sivr
       </span>
 
 
@@ -1988,18 +2293,27 @@
     const savedTheme =
       localStorage.getItem("sivr-theme");
 
+    const systemTheme =
+      window.matchMedia("(prefers-color-scheme: light)").matches
+        ? "light"
+        : "dark";
 
-    if(savedTheme){
+    const initialTheme =
+      savedTheme === "light" || savedTheme === "dark"
+        ? savedTheme
+        : systemTheme;
 
-      root.dataset.theme =
-        savedTheme;
-
-      theme.textContent =
-        savedTheme === "light"
-          ? "☼"
-          : "◐";
-
-    }
+    root.dataset.theme = initialTheme;
+    theme.textContent = initialTheme === "light" ? "☼" : "◐";
+    theme.setAttribute("aria-pressed", initialTheme === "light" ? "true" : "false");
+    theme.setAttribute(
+      "aria-label",
+      initialTheme === "light" ? "Switch to dark theme" : "Switch to light theme"
+    );
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      "content",
+      initialTheme === "light" ? "#f5f6f8" : "#0b0b0f"
+    );
 
 
     theme.addEventListener(
@@ -2026,6 +2340,15 @@
           next === "light"
             ? "☼"
             : "◐";
+
+        theme.setAttribute("aria-pressed", next === "light" ? "true" : "false");
+        theme.setAttribute(
+          "aria-label",
+          next === "light" ? "Switch to dark theme" : "Switch to light theme"
+        );
+
+        const themeColor = next === "light" ? "#f5f6f8" : "#0b0b0f";
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", themeColor);
 
       }
     );
@@ -2062,10 +2385,19 @@
               .trim();
 
 
-          await navigator.clipboard.writeText(
-            text
-          );
-
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const area = document.createElement("textarea");
+            area.value = text;
+            area.setAttribute("readonly", "");
+            area.style.position = "fixed";
+            area.style.opacity = "0";
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand("copy");
+            area.remove();
+          }
 
           copy.textContent =
             "Copied";
