@@ -1,760 +1,1855 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<meta
-  name="description"
-  content="Sivr — privacy-focused, end-to-end encrypted communication."
->
+  <meta
+    name="description"
+    content="Sivr — privacy-focused, end-to-end encrypted communication."
+  >
 
-<title>Sivr — Private Communication</title>
+  <title>Sivr — Private Communication</title>
 
-<link rel="stylesheet" href="style.css">
+  <style>
+    :root{
+      --bg:#0b0b0f;
+      --surface:#11131a;
+      --surface2:#171a22;
+      --text:#e8ecf0;
+      --muted:#969ca8;
+      --silver:#c8ccd4;
+      --line:#ffffff18;
+      --accent:#00e5f0;
+    }
+
+    html[data-theme="light"]{
+      --bg:#f5f6f8;
+      --surface:#ffffff;
+      --surface2:#eef0f4;
+      --text:#0b0b0f;
+      --muted:#5a5f6a;
+      --silver:#3a3e48;
+      --line:#0b0b0f1c;
+      --accent:#00b8c8;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(
+          circle at 80% 10%,
+          #00e5f012,
+          transparent 28rem
+        ),
+        var(--bg);
+
+      color:var(--text);
+
+      font:
+        16px/1.65
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      transition:.25s;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .wrap{
+      width:min(1160px,calc(100% - 40px));
+      margin:auto;
+    }
+
+    /* HEADER */
+
+    header{
+      position:fixed;
+      z-index:10;
+      top:0;
+      width:100%;
+
+      border-bottom:1px solid var(--line);
+
+      background:#0b0b0fcc;
+
+      backdrop-filter:blur(18px);
+    }
+
+    html[data-theme="light"] header{
+      background:#f5f6f8cc;
+    }
+
+    .nav{
+      min-height:72px;
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+
+      font-weight:800;
+      font-size:1.15rem;
+
+      flex-shrink:0;
+    }
+
+    .brand-icon{
+      display:grid;
+      place-items:center;
+
+      width:30px;
+      height:30px;
+
+      border:2px solid currentColor;
+      border-radius:8px;
+
+      font-size:.75rem;
+    }
+
+    .links{
+      display:flex;
+      gap:24px;
+
+      color:var(--muted);
+
+      font-size:.88rem;
+    }
+
+    .links a{
+      transition:.2s;
+    }
+
+    .links a:hover{
+      color:var(--text);
+    }
+
+    .theme{
+      width:38px;
+      height:38px;
+
+      border-radius:50%;
+      border:1px solid var(--line);
+
+      background:var(--surface);
+      color:var(--text);
+
+      cursor:pointer;
+
+      flex-shrink:0;
+    }
+
+    /* HERO */
+
+    .hero{
+      min-height:820px;
+
+      padding:145px 0 100px;
+
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+
+      gap:60px;
+
+      align-items:center;
+    }
+
+    .eyebrow{
+      color:var(--accent);
+
+      font-size:.72rem;
+      font-weight:800;
+
+      letter-spacing:.18em;
+
+      margin-bottom:16px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4{
+      line-height:1.1;
+    }
+
+    h1{
+      margin:0;
+
+      font-size:clamp(3.5rem,7vw,6.8rem);
+
+      letter-spacing:-.065em;
+    }
+
+    h1 em{
+      font-style:normal;
+      color:var(--silver);
+    }
+
+    .hero-copy>p{
+      max-width:650px;
+
+      color:var(--muted);
+
+      font-size:1.12rem;
+
+      margin:28px 0 0;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+
+      margin-top:34px;
+    }
+
+    .btn{
+      padding:12px 18px;
+
+      border:1px solid var(--line);
+      border-radius:12px;
+
+      background:var(--surface);
+
+      font-weight:700;
+
+      transition:.2s;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      border-color:#00e5f055;
+    }
+
+    .btn.primary{
+      background:var(--text);
+      color:var(--bg);
+      border-color:var(--text);
+    }
+
+    .hero-symbol{
+      width:min(430px,80vw);
+      aspect-ratio:1;
+
+      display:grid;
+      place-items:center;
+
+      margin:auto;
+
+      color:var(--text);
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--surface2),
+          var(--surface)
+        );
+
+      border:1px solid var(--line);
+      border-radius:34px;
+
+      box-shadow:0 30px 90px #0006;
+
+      transform:rotate(-3deg);
+    }
+
+    .hero-symbol svg{
+      width:82%;
+    }
+
+    /* GENERAL */
+
+    .section{
+      padding:120px 0;
+    }
+
+    .heading{
+      max-width:760px;
+      margin-bottom:55px;
+    }
+
+    .heading h2{
+      margin:0;
+
+      font-size:clamp(2.3rem,5vw,4.5rem);
+
+      letter-spacing:-.055em;
+    }
+
+    .heading p{
+      color:var(--muted);
+
+      max-width:700px;
+
+      margin-top:22px;
+    }
+
+    /* ABOUT */
+
+    .grid{
+      display:grid;
+
+      grid-template-columns:
+        repeat(4,1fr);
+
+      gap:14px;
+    }
+
+    .card{
+      min-height:280px;
+
+      padding:28px;
+
+      background:var(--surface);
+
+      border:1px solid var(--line);
+      border-radius:24px;
+
+      transition:.25s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+
+      border-color:#00e5f055;
+    }
+
+    .card>b{
+      color:var(--accent);
+
+      font-size:.75rem;
+    }
+
+    .card h3{
+      margin:70px 0 12px;
+    }
+
+    .card p{
+      color:var(--muted);
+
+      font-size:.92rem;
+    }
+
+    /* SECURITY */
+
+    .security{
+      padding:120px 0;
+
+      background:var(--surface);
+
+      border-block:1px solid var(--line);
+    }
+
+    .security-grid{
+      display:grid;
+
+      grid-template-columns:1fr 1fr;
+
+      gap:70px;
+
+      align-items:center;
+    }
+
+    .flow{
+      padding:30px;
+
+      background:var(--bg);
+
+      border:1px solid var(--line);
+
+      border-radius:24px;
+    }
+
+    .flow div{
+      display:flex;
+
+      justify-content:space-between;
+
+      gap:20px;
+
+      padding:17px 0;
+    }
+
+    .flow b{
+      color:var(--accent);
+
+      font-size:.75rem;
+    }
+
+    .flow i{
+      display:block;
+
+      height:1px;
+
+      background:var(--line);
+    }
+
+    /* TECHNICAL */
+
+    .technical-layout{
+      display:grid;
+
+      grid-template-columns:.7fr 1.3fr;
+
+      gap:50px;
+
+      align-items:start;
+    }
+
+    .technical-copy{
+      position:sticky;
+
+      top:110px;
+
+      color:var(--muted);
+
+      font-size:1rem;
+    }
+
+    .technical-copy p{
+      margin:0 0 24px;
+    }
+
+    .technical-grid{
+      display:grid;
+
+      grid-template-columns:
+        repeat(2,1fr);
+
+      gap:14px;
+    }
+
+    .tech-card{
+      min-height:230px;
+
+      padding:28px;
+
+      background:var(--surface);
+
+      border:1px solid var(--line);
+
+      border-radius:24px;
+
+      transition:.25s;
+    }
+
+    .tech-card:hover{
+      transform:translateY(-5px);
+
+      border-color:#00e5f055;
+    }
+
+    .tech-number{
+      color:var(--accent);
+
+      font-size:.72rem;
+
+      font-weight:800;
+
+      letter-spacing:.1em;
+    }
+
+    .tech-card h3{
+      margin:45px 0 12px;
+
+      font-size:1.35rem;
+    }
+
+    .tech-card p{
+      margin:0;
+
+      color:var(--muted);
+
+      font-size:.9rem;
+    }
+
+    .security-note{
+      margin-top:18px;
+
+      display:flex;
+
+      gap:20px;
+
+      align-items:flex-start;
+
+      padding:30px;
+
+      background:var(--surface2);
+
+      border:1px solid var(--line);
+
+      border-radius:24px;
+    }
+
+    .security-note-icon{
+      width:38px;
+      height:38px;
+
+      display:grid;
+      place-items:center;
+
+      flex-shrink:0;
+
+      border:1px solid var(--accent);
+
+      border-radius:50%;
+
+      color:var(--accent);
+
+      font-weight:800;
+    }
+
+    .security-note h3{
+      margin:0 0 10px;
+
+      font-size:1.2rem;
+    }
+
+    .security-note p{
+      margin:0;
+
+      color:var(--muted);
+
+      font-size:.92rem;
+    }
+
+    /* DOWNLOADS */
+
+    .downloads{
+      padding:120px 0;
+
+      background:var(--surface);
+
+      border-block:1px solid var(--line);
+    }
+
+    .download-grid{
+      display:grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap:14px;
+    }
+
+    .download-card{
+      padding:30px;
+
+      min-height:360px;
+
+      display:flex;
+      flex-direction:column;
+
+      background:var(--bg);
+
+      border:1px solid var(--line);
+
+      border-radius:26px;
+
+      transition:.25s;
+    }
+
+    .download-card:hover{
+      transform:translateY(-6px);
+
+      border-color:#00e5f055;
+    }
+
+    .platform-icon{
+      width:62px;
+      height:62px;
+
+      display:grid;
+      place-items:center;
+
+      margin-bottom:45px;
+
+      border:1px solid var(--line);
+
+      border-radius:18px;
+
+      background:var(--surface);
+
+      color:var(--text);
+
+      font-size:2rem;
+
+      font-weight:700;
+    }
+
+    .platform-label{
+      color:var(--accent);
+
+      font-size:.68rem;
+
+      font-weight:800;
+
+      letter-spacing:.16em;
+
+      margin-bottom:8px;
+    }
+
+    .download-info h3{
+      margin:0 0 10px;
+
+      font-size:1.8rem;
+    }
+
+    .download-info p{
+      margin:0;
+
+      color:var(--muted);
+
+      font-size:.92rem;
+    }
+
+    .download-btn{
+      margin-top:auto;
+
+      display:flex;
+
+      align-items:center;
+      justify-content:space-between;
+
+      padding:13px 16px;
+
+      border:1px solid var(--line);
+
+      border-radius:12px;
+
+      background:var(--surface);
+
+      font-weight:700;
+
+      transition:.2s;
+    }
+
+    .download-btn:hover{
+      border-color:var(--accent);
+
+      color:var(--accent);
+    }
+
+    .download-arrow{
+      font-size:1.1rem;
+    }
+
+    .download-note{
+      display:flex;
+
+      align-items:center;
+
+      gap:10px;
+
+      margin-top:22px;
+
+      color:var(--muted);
+
+      font-size:.85rem;
+    }
+
+    .download-note span{
+      color:var(--accent);
+
+      font-size:.6rem;
+    }
+
+    /* README */
+
+    .readme{
+      background:var(--surface);
+
+      border:1px solid var(--line);
+
+      border-radius:24px;
+
+      overflow:hidden;
+
+      box-shadow:0 30px 90px #0005;
+    }
+
+    .bar{
+      height:48px;
+
+      display:flex;
+
+      align-items:center;
+
+      gap:7px;
+
+      padding:0 15px;
+
+      border-bottom:1px solid var(--line);
+    }
+
+    .bar span{
+      width:9px;
+      height:9px;
+
+      border-radius:50%;
+
+      background:var(--muted);
+
+      opacity:.45;
+    }
+
+    .bar button{
+      margin-left:auto;
+
+      border:1px solid var(--line);
+
+      background:transparent;
+
+      color:var(--muted);
+
+      border-radius:8px;
+
+      padding:5px 10px;
+
+      cursor:pointer;
+
+      transition:.2s;
+    }
+
+    .bar button:hover{
+      color:var(--text);
+
+      border-color:var(--accent);
+    }
+
+    .readme article{
+      padding:42px;
+    }
+
+    .readme h3{
+      font-size:2rem;
+    }
+
+    .readme p,
+    .readme li{
+      color:var(--muted);
+    }
+
+    .readme h4{
+      margin-top:35px;
+    }
+
+    .readme ul{
+      padding-left:22px;
+    }
+
+    .readme li{
+      margin:8px 0;
+    }
+
+    /* FOOTER */
+
+    footer{
+      border-top:1px solid var(--line);
+
+      padding:28px 0;
+
+      color:var(--muted);
+
+      font-size:.82rem;
+    }
+
+    .foot{
+      display:flex;
+
+      justify-content:space-between;
+
+      gap:20px;
+    }
+
+    /* ANIMATION */
+
+    .reveal{
+      opacity:0;
+
+      transform:translateY(20px);
+
+      transition:.65s;
+    }
+
+    .reveal.visible{
+      opacity:1;
+
+      transform:none;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:1000px){
+
+      .links{
+        gap:14px;
+      }
+
+      .technical-layout{
+        grid-template-columns:1fr;
+      }
+
+      .technical-copy{
+        position:static;
+      }
+
+    }
+
+    @media(max-width:900px){
+
+      .hero,
+      .security-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        min-height:auto;
+
+        padding-top:125px;
+      }
+
+      .hero-symbol{
+        margin-top:25px;
+      }
+
+      .grid{
+        grid-template-columns:
+          repeat(2,1fr);
+      }
+
+      .download-grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+    @media(max-width:700px){
+
+      .links{
+        display:none;
+      }
+
+      .technical-grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+    @media(max-width:600px){
+
+      .wrap{
+        width:calc(100% - 28px);
+      }
+
+      h1{
+        font-size:3.4rem;
+      }
+
+      .section,
+      .security,
+      .downloads{
+        padding:85px 0;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .readme article{
+        padding:25px;
+      }
+
+      .security-note{
+        flex-direction:column;
+      }
+
+      .foot{
+        flex-direction:column;
+      }
+
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-<nav class="nav wrap">
+  <nav class="nav wrap">
 
-<a class="brand" href="#top">
-  <span class="brand-icon">S</span>
-  <span>Sivr</span>
-</a>
+    <a class="brand" href="#top">
+      <span class="brand-icon">S</span>
+      <span>Sivr</span>
+    </a>
 
-<div class="links">
-  <a href="#about">About</a>
-  <a href="#security">Security</a>
-  <a href="#technical">Technical</a>
-  <a href="#downloads">Downloads</a>
-  <a href="#readme">README</a>
-</div>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#security">Security</a>
+      <a href="#technical">Technical</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#readme">README</a>
+    </div>
 
-<button id="theme" class="theme" aria-label="Toggle theme">
-  ◐
-</button>
+    <button
+      id="theme"
+      class="theme"
+      aria-label="Toggle theme"
+    >◐</button>
 
-</nav>
+  </nav>
 </header>
 
 
 <main id="top">
 
-<!-- HERO -->
-<section class="hero wrap">
+  <!-- HERO -->
+
+  <section class="hero wrap">
+
+    <div class="hero-copy reveal">
+
+      <div class="eyebrow">
+        PRIVATE COMMUNICATION
+      </div>
+
+      <h1>
+        Communication,<br>
+        <em>without the relay.</em>
+      </h1>
+
+      <p>
+        Sivr is a privacy-focused, end-to-end encrypted
+        chat client built on lightweight relay-based
+        infrastructure.
+      </p>
 
-<div class="hero-copy reveal">
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="#downloads"
+        >
+          Download Sivr
+        </a>
+
+        <a
+          class="btn"
+          href="#security"
+        >
+          Security model
+        </a>
 
-<div class="eyebrow">
-  PRIVATE COMMUNICATION
-</div>
+      </div>
 
-<h1>
-  Communication,<br>
-  <em>without the relay.</em>
-</h1>
+    </div>
 
-<p>
-  Sivr is a privacy-focused, end-to-end encrypted chat client
-  built on lightweight relay-based infrastructure.
-</p>
+
+    <div
+      class="hero-symbol reveal"
+      aria-label="Sivr symbol"
+    >
+
+      <svg
+        viewBox="0 0 512 512"
+        role="img"
+      >
+
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="17"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+
+          <polygon
+            points="256,45 467,256 256,467 45,256"
+          />
+
+          <line
+            x1="256"
+            y1="45"
+            x2="256"
+            y2="467"
+            stroke-dasharray="28 28"
+          />
+
+          <line
+            x1="45"
+            y1="256"
+            x2="467"
+            y2="256"
+            stroke-dasharray="28 28"
+          />
+
+          <line
+            x1="106"
+            y1="106"
+            x2="406"
+            y2="406"
+            stroke-dasharray="28 28"
+          />
 
-<div class="actions">
-  <a class="btn primary" href="#downloads">
-    Download Sivr
-  </a>
+          <line
+            x1="406"
+            y1="106"
+            x2="106"
+            y2="406"
+            stroke-dasharray="28 28"
+          />
+
+          <path
+            d="M256 256l-10 10m10-10l10 10m-10-10l-10-10m10 10l10-10"
+          />
+
+        </g>
 
-  <a class="btn" href="#security">
-    Security model
-  </a>
-</div>
+      </svg>
 
-</div>
+    </div>
 
+  </section>
 
-<div class="hero-symbol reveal" aria-label="Sivr symbol">
-
-<svg viewBox="0 0 512 512" role="img">
 
-<g
-  fill="none"
-  stroke="currentColor"
-  stroke-width="17"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-
-<polygon points="256,45 467,256 256,467 45,256"/>
+  <!-- ABOUT -->
 
-<line
-  x1="256"
-  y1="45"
-  x2="256"
-  y2="467"
-  stroke-dasharray="28 28"
-/>
-
-<line
-  x1="45"
-  y1="256"
-  x2="467"
-  y2="256"
-  stroke-dasharray="28 28"
-/>
+  <section id="about" class="section wrap">
 
-<line
-  x1="106"
-  y1="106"
-  x2="406"
-  y2="406"
-  stroke-dasharray="28 28"
-/>
+    <div class="heading reveal">
 
-<line
-  x1="406"
-  y1="106"
-  x2="106"
-  y2="406"
-  stroke-dasharray="28 28"
-/>
+      <div class="eyebrow">
+        ABOUT
+      </div>
 
-<path
-  d="M256 256l-10 10m10-10l10 10m-10-10l-10-10m10 10l10-10"
-/>
+      <h2>
+        A private communication layer.
+      </h2>
 
-</g>
+      <p>
+        Sivr is designed around a simple principle:
+        the relay should move encrypted messages,
+        not have access to their contents.
+      </p>
 
-</svg>
+    </div>
 
-</div>
 
-</section>
+    <div class="grid">
 
+      <article class="card reveal">
+        <b>01</b>
+        <h3>Client-side encryption</h3>
+        <p>
+          Messages are encrypted before they leave the
+          client and remain unreadable to the relay.
+        </p>
+      </article>
 
-<!-- ABOUT -->
-<section id="about" class="section wrap">
+      <article class="card reveal">
+        <b>02</b>
+        <h3>Cryptographic identity</h3>
+        <p>
+          Users can verify identities through cryptographic
+          fingerprints and authenticated messages.
+        </p>
+      </article>
 
-<div class="heading reveal">
+      <article class="card reveal">
+        <b>03</b>
+        <h3>Lightweight relay</h3>
+        <p>
+          The server provides transport infrastructure
+          rather than readable conversation storage.
+        </p>
+      </article>
 
-<div class="eyebrow">
-  ABOUT
-</div>
+      <article class="card reveal">
+        <b>04</b>
+        <h3>Replay protection</h3>
+        <p>
+          Authenticated message sequencing helps prevent
+          previously accepted messages from being replayed.
+        </p>
+      </article>
 
-<h2>
-  A private communication layer.
-</h2>
+    </div>
 
-<p>
-  Sivr is designed around a simple principle:
-  the relay should move encrypted messages,
-  not have access to their contents.
-</p>
+  </section>
 
-</div>
 
+  <!-- SECURITY -->
 
-<div class="grid">
+  <section id="security" class="security">
 
-<article class="card reveal">
-  <b>01</b>
-  <h3>Client-side encryption</h3>
-  <p>
-    Messages are encrypted before they leave the client
-    and remain unreadable to the relay.
-  </p>
-</article>
+    <div class="wrap security-grid">
 
+      <div class="heading reveal">
 
-<article class="card reveal">
-  <b>02</b>
-  <h3>Cryptographic identity</h3>
-  <p>
-    Users can verify identities through cryptographic
-    fingerprints and authenticated messages.
-  </p>
-</article>
+        <div class="eyebrow">
+          SECURITY MODEL
+        </div>
 
+        <h2>
+          Trust is established by the clients.
+        </h2>
 
-<article class="card reveal">
-  <b>03</b>
-  <h3>Lightweight relay</h3>
-  <p>
-    The server provides transport infrastructure rather
-    than readable conversation storage.
-  </p>
-</article>
+        <p>
+          Sivr separates transport from trust.
+          The relay forwards packets while encryption,
+          identity verification and message validation
+          remain client-side.
+        </p>
 
+      </div>
 
-<article class="card reveal">
-  <b>04</b>
-  <h3>Replay protection</h3>
-  <p>
-    Authenticated message sequencing helps prevent
-    previously accepted messages from being replayed.
-  </p>
-</article>
 
-</div>
+      <div class="flow reveal">
 
-</section>
+        <div>
+          <b>01</b>
+          <span>Establish trust</span>
+        </div>
 
+        <i></i>
 
-<!-- SECURITY -->
-<section id="security" class="security">
+        <div>
+          <b>02</b>
+          <span>Encrypt locally</span>
+        </div>
 
-<div class="wrap security-grid">
+        <i></i>
 
-<div class="heading reveal">
+        <div>
+          <b>03</b>
+          <span>Relay ciphertext</span>
+        </div>
 
-<div class="eyebrow">
-  SECURITY MODEL
-</div>
+        <i></i>
 
-<h2>
-  Trust is established by the clients.
-</h2>
+        <div>
+          <b>04</b>
+          <span>Verify &amp; decrypt</span>
+        </div>
 
-<p>
-  Sivr separates transport from trust.
-  The relay forwards packets while encryption,
-  identity verification and message validation
-  remain client-side.
-</p>
+      </div>
 
-</div>
+    </div>
 
+  </section>
 
-<div class="flow reveal">
 
-<div>
-  <b>01</b>
-  <span>Establish trust</span>
-</div>
+  <!-- TECHNICAL OVERVIEW -->
 
-<i></i>
+  <section
+    id="technical"
+    class="section wrap"
+  >
 
-<div>
-  <b>02</b>
-  <span>Encrypt locally</span>
-</div>
+    <div class="heading reveal">
 
-<i></i>
+      <div class="eyebrow">
+        TECHNICAL OVERVIEW
+      </div>
 
-<div>
-  <b>03</b>
-  <span>Relay ciphertext</span>
-</div>
+      <h2>
+        Security lives inside the client.
+      </h2>
 
-<i></i>
+      <p>
+        SIVR extends the hack.chat protocol through an
+        application-layer secure messaging protocol
+        implemented entirely inside the client.
+      </p>
 
-<div>
-  <b>04</b>
-  <span>Verify &amp; decrypt</span>
-</div>
+    </div>
 
-</div>
 
-</div>
+    <div class="technical-layout">
 
-</section>
+      <div class="technical-copy reveal">
 
+        <p>
+          The protocol is designed to operate transparently
+          over the standard hack.chat transport, allowing
+          secure clients to communicate without requiring
+          any changes to the existing server implementation.
+        </p>
 
-<!-- TECHNICAL OVERVIEW -->
-<section id="technical" class="section wrap">
+        <p>
+          Every encrypted message is authenticated before
+          being displayed. Invalid signatures, replayed
+          packets from trusted peers, malformed packets,
+          and failed decryptions are rejected before reaching
+          the user interface.
+        </p>
 
-<div class="heading reveal">
+      </div>
 
-<div class="eyebrow">
-  TECHNICAL OVERVIEW
-</div>
 
-<h2>
-  Security lives inside the client.
-</h2>
+      <div class="technical-grid">
 
-<p>
-  SIVR extends the hack.chat protocol through an
-  application-layer secure messaging protocol implemented
-  entirely inside the client.
-</p>
+        <article class="tech-card reveal">
+          <span class="tech-number">01</span>
+          <h3>AES-256-GCM</h3>
+          <p>
+            End-to-end encrypted messaging using authenticated
+            AES-256-GCM encryption.
+          </p>
+        </article>
 
-</div>
+        <article class="tech-card reveal">
+          <span class="tech-number">02</span>
+          <h3>Ed25519</h3>
+          <p>
+            Digital signatures provide sender authentication
+            and message integrity.
+          </p>
+        </article>
 
+        <article class="tech-card reveal">
+          <span class="tech-number">03</span>
+          <h3>Stable identity</h3>
+          <p>
+            Client identity is backed by persistent
+            cryptographic keys.
+          </p>
+        </article>
 
-<div class="technical-layout">
+        <article class="tech-card reveal">
+          <span class="tech-number">04</span>
+          <h3>TOFU verification</h3>
+          <p>
+            Trust-On-First-Use fingerprint verification
+            establishes trusted peers.
+          </p>
+        </article>
 
-<div class="technical-copy reveal">
+        <article class="tech-card reveal">
+          <span class="tech-number">05</span>
+          <h3>Replay protection</h3>
+          <p>
+            Trusted peer sequence tracking prevents
+            previously accepted packets from being replayed.
+          </p>
+        </article>
 
-<p>
-  The protocol is designed to operate transparently over
-  the standard hack.chat transport, allowing secure clients
-  to communicate without requiring any changes to the
-  existing server implementation.
-</p>
+        <article class="tech-card reveal">
+          <span class="tech-number">06</span>
+          <h3>Secure presence</h3>
+          <p>
+            Presence discovery is authenticated so clients
+            can identify trusted peers securely.
+          </p>
+        </article>
 
-<p>
-  Every encrypted message is authenticated before being
-  displayed. Invalid signatures, replayed packets from
-  trusted peers, malformed packets, and failed decryptions
-  are rejected before reaching the user interface.
-</p>
+        <article class="tech-card reveal">
+          <span class="tech-number">07</span>
+          <h3>State recovery</h3>
+          <p>
+            Automatic reconnection restores client state
+            after temporary transport interruptions.
+          </p>
+        </article>
 
-</div>
+        <article class="tech-card reveal">
+          <span class="tech-number">08</span>
+          <h3>Verified rendering</h3>
+          <p>
+            Markdown content is rendered only after successful
+            authentication and decryption.
+          </p>
+        </article>
 
+      </div>
 
-<div class="technical-grid">
+    </div>
 
-<article class="tech-card reveal">
-  <span class="tech-number">01</span>
-  <h3>AES-256-GCM</h3>
-  <p>
-    End-to-end encrypted messaging using authenticated
-    AES-256-GCM encryption.
-  </p>
-</article>
 
+    <div class="security-note reveal">
 
-<article class="tech-card reveal">
-  <span class="tech-number">02</span>
-  <h3>Ed25519</h3>
-  <p>
-    Digital signatures provide sender authentication
-    and message integrity.
-  </p>
-</article>
+      <div class="security-note-icon">
+        ✓
+      </div>
 
+      <div>
 
-<article class="tech-card reveal">
-  <span class="tech-number">03</span>
-  <h3>Stable identity</h3>
-  <p>
-    Client identity is backed by persistent cryptographic
-    keys rather than temporary session identifiers.
-  </p>
-</article>
+        <h3>
+          No server-side cryptography.
+        </h3>
 
+        <p>
+          SIVR requires no cryptographic processing or
+          protocol modifications on the server. Encryption,
+          authentication, identity verification, replay
+          protection and message validation remain inside
+          the client.
+        </p>
 
-<article class="tech-card reveal">
-  <span class="tech-number">04</span>
-  <h3>TOFU verification</h3>
-  <p>
-    Trust-On-First-Use fingerprint verification allows
-    clients to establish and recognize trusted peers.
-  </p>
-</article>
+      </div>
 
+    </div>
 
-<article class="tech-card reveal">
-  <span class="tech-number">05</span>
-  <h3>Replay protection</h3>
-  <p>
-    Trusted peer sequence tracking prevents previously
-    accepted packets from being replayed.
-  </p>
-</article>
+  </section>
 
 
-<article class="tech-card reveal">
-  <span class="tech-number">06</span>
-  <h3>Secure presence</h3>
-  <p>
-    Presence discovery is authenticated so clients can
-    identify trusted peers securely.
-  </p>
-</article>
+  <!-- DOWNLOADS -->
 
+  <section
+    id="downloads"
+    class="downloads"
+  >
 
-<article class="tech-card reveal">
-  <span class="tech-number">07</span>
-  <h3>State recovery</h3>
-  <p>
-    Automatic reconnection restores client state after
-    temporary transport interruptions.
-  </p>
-</article>
+    <div class="wrap">
 
+      <div class="heading reveal">
 
-<article class="tech-card reveal">
-  <span class="tech-number">08</span>
-  <h3>Verified rendering</h3>
-  <p>
-    Markdown content is rendered only after successful
-    authentication and decryption.
-  </p>
-</article>
+        <div class="eyebrow">
+          DOWNLOADS
+        </div>
 
-</div>
+        <h2>
+          Take Sivr with you.
+        </h2>
 
-</div>
+        <p>
+          Secure communication across your devices.
+          Choose your platform below.
+        </p>
 
+      </div>
 
-<div class="security-note reveal">
 
-<div class="security-note-icon">
-  ✓
-</div>
+      <div class="download-grid">
 
-<div>
 
-<h3>
-  No server-side cryptography.
-</h3>
+        <!-- ANDROID -->
 
-<p>
-  SIVR requires no cryptographic processing or protocol
-  modifications on the server. Encryption, authentication,
-  identity verification, replay protection and message
-  validation remain inside the client.
-</p>
+        <article class="download-card reveal">
 
-</div>
+          <div class="platform-icon">
+            ◆
+          </div>
 
-</div>
+          <div class="download-info">
 
-</section>
+            <div class="platform-label">
+              MOBILE
+            </div>
 
+            <h3>
+              Android
+            </h3>
 
-<!-- DOWNLOADS -->
-<section id="downloads" class="downloads">
+            <p>
+              Sivr for Android devices.
+            </p>
 
-<div class="wrap">
+          </div>
 
-<div class="heading reveal">
+          <a
+            class="download-btn"
+            href="#"
+            onclick="downloadUnavailable(event,'Android')"
+          >
+            <span>Download</span>
+            <span class="download-arrow">↓</span>
+          </a>
 
-<div class="eyebrow">
-  DOWNLOADS
-</div>
+        </article>
 
-<h2>
-  Take Sivr with you.
-</h2>
 
-<p>
-  Secure communication across your devices.
-  Choose your platform below.
-</p>
+        <!-- MACOS -->
 
-</div>
+        <article class="download-card reveal">
 
+          <div class="platform-icon">
+            ●
+          </div>
 
-<div class="download-grid">
+          <div class="download-info">
 
+            <div class="platform-label">
+              DESKTOP
+            </div>
 
-<!-- ANDROID -->
-<article class="download-card reveal">
+            <h3>
+              macOS
+            </h3>
 
-<div class="platform-icon android-icon">
-  <span>◆</span>
-</div>
+            <p>
+              Sivr for Apple Mac computers.
+            </p>
 
-<div class="download-info">
+          </div>
 
-<div class="platform-label">
-  MOBILE
-</div>
+          <a
+            class="download-btn"
+            href="#"
+            onclick="downloadUnavailable(event,'macOS')"
+          >
+            <span>Download</span>
+            <span class="download-arrow">↓</span>
+          </a>
 
-<h3>
-  Android
-</h3>
+        </article>
 
-<p>
-  Sivr for Android devices.
-</p>
 
-</div>
+        <!-- WINDOWS -->
 
-<a
-  class="download-btn"
-  href="#"
-  aria-label="Download Sivr for Android"
->
-  <span>Download</span>
-  <span class="download-arrow">↓</span>
-</a>
+        <article class="download-card reveal">
 
-</article>
+          <div class="platform-icon">
+            ⊞
+          </div>
 
+          <div class="download-info">
 
-<!-- MACOS -->
-<article class="download-card reveal">
+            <div class="platform-label">
+              DESKTOP
+            </div>
 
-<div class="platform-icon mac-icon">
-  <span>●</span>
-</div>
+            <h3>
+              Windows
+            </h3>
 
-<div class="download-info">
+            <p>
+              Sivr for Windows computers.
+            </p>
 
-<div class="platform-label">
-  DESKTOP
-</div>
+          </div>
 
-<h3>
-  macOS
-</h3>
+          <a
+            class="download-btn"
+            href="#"
+            onclick="downloadUnavailable(event,'Windows')"
+          >
+            <span>Download</span>
+            <span class="download-arrow">↓</span>
+          </a>
 
-<p>
-  Sivr for Apple Mac computers.
-</p>
+        </article>
 
-</div>
 
-<a
-  class="download-btn"
-  href="#"
-  aria-label="Download Sivr for macOS"
->
-  <span>Download</span>
-  <span class="download-arrow">↓</span>
-</a>
+      </div>
 
-</article>
 
+      <div class="download-note reveal">
+        <span>●</span>
+        Official builds will be available soon.
+      </div>
 
-<!-- WINDOWS -->
-<article class="download-card reveal">
+    </div>
 
-<div class="platform-icon windows-icon">
-  <span>⊞</span>
-</div>
+  </section>
 
-<div class="download-info">
 
-<div class="platform-label">
-  DESKTOP
-</div>
+  <!-- README -->
 
-<h3>
-  Windows
-</h3>
+  <section
+    id="readme"
+    class="section wrap"
+  >
 
-<p>
-  Sivr for Windows computers.
-</p>
+    <div class="heading reveal">
 
-</div>
+      <div class="eyebrow">
+        README
+      </div>
 
-<a
-  class="download-btn"
-  href="#"
-  aria-label="Download Sivr for Windows"
->
-  <span>Download</span>
-  <span class="download-arrow">↓</span>
-</a>
+      <h2>
+        Sivr in brief.
+      </h2>
 
-</article>
+    </div>
 
 
-</div>
+    <div class="readme reveal">
 
-<div class="download-note reveal">
-  <span>●</span>
-  Official builds will be available soon.
-</div>
+      <div class="bar">
 
-</div>
+        <span></span>
+        <span></span>
+        <span></span>
 
-</section>
+        <button id="copy">
+          Copy
+        </button>
 
+      </div>
 
-<!-- README -->
-<section id="readme" class="section wrap">
 
-<div class="heading reveal">
+      <article id="readmeText">
 
-<div class="eyebrow">
-  README
-</div>
+        <h3>
+          Sivr
+        </h3>
 
-<h2>
-  Sivr in brief.
-</h2>
 
-</div>
+        <p>
+          Sivr is a privacy-focused, end-to-end encrypted
+          chat client built on top of a lightweight
+          relay-based infrastructure. It is designed to
+          provide secure, authenticated communication while
+          keeping message content inaccessible to the relay
+          server.
+        </p>
 
 
-<div class="readme reveal">
+        <p>
+          The project places emphasis on client-side
+          security, cryptographic identity verification,
+          and protection against message replay and
+          unauthorized access.
+        </p>
 
-<div class="bar">
 
-<span></span>
-<span></span>
-<span></span>
+        <h4>
+          Core principles
+        </h4>
 
-<button id="copy">
-  Copy
-</button>
+        <ul>
 
-</div>
+          <li>
+            Messages are encrypted before transmission.
+          </li>
 
+          <li>
+            Cryptographic identities can be verified
+            through fingerprints.
+          </li>
 
-<article id="readmeText">
+          <li>
+            The relay transports encrypted data without
+            requiring readable message content.
+          </li>
 
-<h3>
-  Sivr
-</h3>
+          <li>
+            Message sequencing provides replay protection.
+          </li>
 
+          <li>
+            Security-sensitive operations remain client-side.
+          </li>
 
-<p>
-  Sivr is a privacy-focused, end-to-end encrypted chat
-  client built on top of a lightweight relay-based
-  infrastructure. It is designed to provide secure,
-  authenticated communication while keeping message
-  content inaccessible to the relay server.
-</p>
+        </ul>
 
 
-<p>
-  The project places emphasis on client-side security,
-  cryptographic identity verification, and protection
-  against message replay and unauthorized access.
-  Sivr is designed as a lightweight and independent
-  communication layer for private, trusted environments
-  where control over the client and its security model
-  is essential.
-</p>
+        <h4>
+          Architecture
+        </h4>
 
+        <p>
+          Sivr uses a client-centric security model.
+          The client handles identity, encryption,
+          authentication and message validation, while
+          the relay primarily provides message transport.
+        </p>
 
-<h4>
-  Core principles
-</h4>
 
-<ul>
+        <h4>
+          Technical Overview
+        </h4>
 
-<li>
-  Messages are encrypted before transmission.
-</li>
+        <p>
+          SIVR extends the hack.chat protocol through an
+          application-layer secure messaging protocol
+          implemented entirely inside the client.
+        </p>
 
-<li>
-  Cryptographic identities can be verified through
-  fingerprints.
-</li>
 
-<li>
-  The relay transports encrypted data without requiring
-  readable message content.
-</li>
+        <ul>
 
-<li>
-  Message sequencing provides replay protection.
-</li>
+          <li>
+            End-to-end AES-256-GCM encrypted messaging.
+          </li>
 
-<li>
-  Security-sensitive operations remain client-side.
-</li>
+          <li>
+            Ed25519 digital signatures for sender
+            authentication.
+          </li>
 
-</ul>
+          <li>
+            Stable client identity backed by persistent
+            cryptographic keys.
+          </li>
 
+          <li>
+            Trust-On-First-Use (TOFU) fingerprint verification.
+          </li>
 
-<h4>
-  Architecture
-</h4>
+          <li>
+            Replay attack protection using trusted peer
+            sequence tracking.
+          </li>
 
-<p>
-  Sivr uses a client-centric security model. The client
-  handles identity, encryption, authentication and
-  message validation, while the relay primarily provides
-  message transport.
-</p>
+          <li>
+            Authenticated secure presence discovery.
+          </li>
 
+          <li>
+            Automatic reconnection with state recovery.
+          </li>
 
-<h4>
-  Technical Overview
-</h4>
+          <li>
+            Markdown rendering after successful verification
+            and decryption.
+          </li>
 
-<p>
-  SIVR extends the hack.chat protocol through an
-  application-layer secure messaging protocol implemented
-  entirely inside the client.
-</p>
+          <li>
+            No server-side cryptography or protocol
+            modifications.
+          </li>
 
-<ul>
+        </ul>
 
-<li>
-  End-to-end AES-256-GCM encrypted messaging.
-</li>
 
-<li>
-  Ed25519 digital signatures for sender authentication.
-</li>
+        <p>
+          Every encrypted message is authenticated before
+          being displayed. Invalid signatures, replayed
+          packets from trusted peers, malformed packets,
+          and failed decryptions are rejected before reaching
+          the user interface.
+        </p>
 
-<li>
-  Stable client identity backed by persistent
-  cryptographic keys.
-</li>
 
-<li>
-  Trust-On-First-Use (TOFU) fingerprint verification.
-</li>
+        <p>
+          The protocol is designed to operate transparently
+          over the standard hack.chat transport, allowing
+          secure clients to communicate without requiring
+          any changes to the existing server implementation.
+        </p>
 
-<li>
-  Replay attack protection using trusted peer sequence tracking.
-</li>
+      </article>
 
-<li>
-  Authenticated secure presence discovery.
-</li>
+    </div>
 
-<li>
-  Automatic reconnection with state recovery.
-</li>
-
-<li>
-  Markdown rendering after successful verification
-  and decryption.
-</li>
-
-<li>
-  No server-side cryptography or protocol modifications.
-</li>
-
-</ul>
-
-
-<p>
-  Every encrypted message is authenticated before being
-  displayed. Invalid signatures, replayed packets from
-  trusted peers, malformed packets, and failed decryptions
-  are rejected before reaching the user interface.
-</p>
-
-
-<p>
-  The protocol is designed to operate transparently over
-  the standard hack.chat transport, allowing secure clients
-  to communicate without requiring any changes to the
-  existing server implementation.
-</p>
-
-</article>
-
-</div>
-
-</section>
+  </section>
 
 </main>
 
 
 <footer>
 
-<div class="wrap foot">
+  <div class="wrap foot">
 
-<span>
-  © <span id="year"></span> Sivr
-</span>
+    <span>
+      © <span id="year"></span> Sivr
+    </span>
 
-<span>
-  Private communication, client-side.
-</span>
+    <span>
+      Private communication, client-side.
+    </span>
 
-</div>
+  </div>
 
 </footer>
 
 
-<script src="script.js"></script>
+<script>
+
+  /* ================================
+     THEME
+  ================================= */
+
+  const root =
+    document.documentElement;
+
+  const theme =
+    document.getElementById("theme");
+
+  const savedTheme =
+    localStorage.getItem("sivr-theme");
+
+  if(savedTheme){
+
+    root.dataset.theme =
+      savedTheme;
+
+    theme.textContent =
+      savedTheme === "light"
+        ? "☼"
+        : "◐";
+  }
+
+
+  theme.addEventListener(
+    "click",
+    () => {
+
+      const next =
+        root.dataset.theme === "light"
+          ? "dark"
+          : "light";
+
+      root.dataset.theme =
+        next;
+
+      localStorage.setItem(
+        "sivr-theme",
+        next
+      );
+
+      theme.textContent =
+        next === "light"
+          ? "☼"
+          : "◐";
+
+    }
+  );
+
+
+  /* ================================
+     YEAR
+  ================================= */
+
+  document.getElementById(
+    "year"
+  ).textContent =
+    new Date().getFullYear();
+
+
+  /* ================================
+     README COPY
+  ================================= */
+
+  const copy =
+    document.getElementById("copy");
+
+  copy.addEventListener(
+    "click",
+    async () => {
+
+      try{
+
+        const text =
+          document
+            .getElementById("readmeText")
+            .innerText
+            .trim();
+
+        await navigator.clipboard.writeText(
+          text
+        );
+
+        copy.textContent =
+          "Copied";
+
+        setTimeout(
+          () => {
+            copy.textContent =
+              "Copy";
+          },
+          1400
+        );
+
+      }catch(error){
+
+        copy.textContent =
+          "Copy failed";
+
+        setTimeout(
+          () => {
+            copy.textContent =
+              "Copy";
+          },
+          1400
+        );
+
+      }
+
+    }
+  );
+
+
+  /* ================================
+     SCROLL REVEAL
+  ================================= */
+
+  const observer =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(
+          entry => {
+
+            if(
+              entry.isIntersecting
+            ){
+
+              entry.target.classList.add(
+                "visible"
+              );
+
+              observer.unobserve(
+                entry.target
+              );
+
+            }
+
+          }
+        );
+
+      },
+      {
+        threshold:.12
+      }
+    );
+
+
+  document
+    .querySelectorAll(".reveal")
+    .forEach(
+      element => {
+        observer.observe(element);
+      }
+    );
+
+
+  /* ================================
+     DOWNLOAD PLACEHOLDER
+  ================================= */
+
+  function downloadUnavailable(
+    event,
+    platform
+  ){
+
+    event.preventDefault();
+
+    alert(
+      "The official " +
+      platform +
+      " build is not available yet."
+    );
+
+  }
+
+</script>
 
 </body>
 </html>
+```
