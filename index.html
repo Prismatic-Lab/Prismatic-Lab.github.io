@@ -3,86 +3,758 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Sivr — privacy-focused, end-to-end encrypted communication.">
+
+<meta
+  name="description"
+  content="Sivr — privacy-focused, end-to-end encrypted communication."
+>
+
 <title>Sivr — Private Communication</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
 <header>
 <nav class="nav wrap">
-<a class="brand" href="#top"><span class="brand-icon">S</span><span>Sivr</span></a>
-<div class="links"><a href="#about">About</a><a href="#security">Security</a><a href="#readme">README</a></div>
-<button id="theme" class="theme" aria-label="Toggle theme">◐</button>
+
+<a class="brand" href="#top">
+  <span class="brand-icon">S</span>
+  <span>Sivr</span>
+</a>
+
+<div class="links">
+  <a href="#about">About</a>
+  <a href="#security">Security</a>
+  <a href="#technical">Technical</a>
+  <a href="#downloads">Downloads</a>
+  <a href="#readme">README</a>
+</div>
+
+<button id="theme" class="theme" aria-label="Toggle theme">
+  ◐
+</button>
+
 </nav>
 </header>
 
+
 <main id="top">
+
+<!-- HERO -->
 <section class="hero wrap">
+
 <div class="hero-copy reveal">
-<div class="eyebrow">PRIVATE COMMUNICATION</div>
-<h1>Communication,<br><em>without the relay.</em></h1>
-<p>Sivr is a privacy-focused, end-to-end encrypted chat client built on lightweight relay-based infrastructure.</p>
-<div class="actions"><a class="btn primary" href="#readme">Read the README</a><a class="btn" href="#security">Security model</a></div>
+
+<div class="eyebrow">
+  PRIVATE COMMUNICATION
 </div>
+
+<h1>
+  Communication,<br>
+  <em>without the relay.</em>
+</h1>
+
+<p>
+  Sivr is a privacy-focused, end-to-end encrypted chat client
+  built on lightweight relay-based infrastructure.
+</p>
+
+<div class="actions">
+  <a class="btn primary" href="#downloads">
+    Download Sivr
+  </a>
+
+  <a class="btn" href="#security">
+    Security model
+  </a>
+</div>
+
+</div>
+
+
 <div class="hero-symbol reveal" aria-label="Sivr symbol">
+
 <svg viewBox="0 0 512 512" role="img">
-<g fill="none" stroke="currentColor" stroke-width="17" stroke-linecap="round" stroke-linejoin="round">
+
+<g
+  fill="none"
+  stroke="currentColor"
+  stroke-width="17"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+
 <polygon points="256,45 467,256 256,467 45,256"/>
-<line x1="256" y1="45" x2="256" y2="467" stroke-dasharray="28 28"/>
-<line x1="45" y1="256" x2="467" y2="256" stroke-dasharray="28 28"/>
-<line x1="106" y1="106" x2="406" y2="406" stroke-dasharray="28 28"/>
-<line x1="406" y1="106" x2="106" y2="406" stroke-dasharray="28 28"/>
-<path d="M256 256l-10 10m10-10l10 10m-10-10l-10-10m10 10l10-10"/>
-</g></svg>
+
+<line
+  x1="256"
+  y1="45"
+  x2="256"
+  y2="467"
+  stroke-dasharray="28 28"
+/>
+
+<line
+  x1="45"
+  y1="256"
+  x2="467"
+  y2="256"
+  stroke-dasharray="28 28"
+/>
+
+<line
+  x1="106"
+  y1="106"
+  x2="406"
+  y2="406"
+  stroke-dasharray="28 28"
+/>
+
+<line
+  x1="406"
+  y1="106"
+  x2="106"
+  y2="406"
+  stroke-dasharray="28 28"
+/>
+
+<path
+  d="M256 256l-10 10m10-10l10 10m-10-10l-10-10m10 10l10-10"
+/>
+
+</g>
+
+</svg>
+
 </div>
+
 </section>
 
+
+<!-- ABOUT -->
 <section id="about" class="section wrap">
-<div class="heading reveal"><div class="eyebrow">ABOUT</div><h2>A private communication layer.</h2><p>Sivr is designed around a simple principle: the relay should move encrypted messages, not have access to their contents.</p></div>
+
+<div class="heading reveal">
+
+<div class="eyebrow">
+  ABOUT
+</div>
+
+<h2>
+  A private communication layer.
+</h2>
+
+<p>
+  Sivr is designed around a simple principle:
+  the relay should move encrypted messages,
+  not have access to their contents.
+</p>
+
+</div>
+
+
 <div class="grid">
-<article class="card reveal"><b>01</b><h3>Client-side encryption</h3><p>Messages are encrypted before they leave the client and remain unreadable to the relay.</p></article>
-<article class="card reveal"><b>02</b><h3>Cryptographic identity</h3><p>Users can verify identities through cryptographic fingerprints and authenticated messages.</p></article>
-<article class="card reveal"><b>03</b><h3>Lightweight relay</h3><p>The server provides transport infrastructure rather than readable conversation storage.</p></article>
-<article class="card reveal"><b>04</b><h3>Replay protection</h3><p>Authenticated message sequencing helps prevent previously accepted messages from being replayed.</p></article>
-</div>
-</section>
 
-<section id="security" class="security">
-<div class="wrap security-grid">
-<div class="heading reveal"><div class="eyebrow">SECURITY MODEL</div><h2>Trust is established by the clients.</h2><p>Sivr separates transport from trust. The relay forwards packets while encryption, identity verification and message validation remain client-side.</p></div>
-<div class="flow reveal">
-<div><b>01</b><span>Establish trust</span></div><i></i>
-<div><b>02</b><span>Encrypt locally</span></div><i></i>
-<div><b>03</b><span>Relay ciphertext</span></div><i></i>
-<div><b>04</b><span>Verify &amp; decrypt</span></div>
-</div>
-</div>
-</section>
-
-<section id="readme" class="section wrap">
-<div class="heading reveal"><div class="eyebrow">README</div><h2>Sivr in brief.</h2></div>
-<div class="readme reveal">
-<div class="bar"><span></span><span></span><span></span><button id="copy">Copy</button></div>
-<article id="readmeText">
-<h3>Sivr</h3>
-<p>Sivr is a privacy-focused, end-to-end encrypted chat client built on top of a lightweight relay-based infrastructure. It is designed to provide secure, authenticated communication while keeping message content inaccessible to the relay server.</p>
-<p>The project places emphasis on client-side security, cryptographic identity verification, and protection against message replay and unauthorized access. Sivr is designed as a lightweight and independent communication layer for private, trusted environments where control over the client and its security model is essential.</p>
-<h4>Core principles</h4>
-<ul>
-<li>Messages are encrypted before transmission.</li>
-<li>Cryptographic identities can be verified through fingerprints.</li>
-<li>The relay transports encrypted data without requiring readable message content.</li>
-<li>Message sequencing provides replay protection.</li>
-<li>Security-sensitive operations remain client-side.</li>
-</ul>
-<h4>Architecture</h4>
-<p>Sivr uses a client-centric security model. The client handles identity, encryption, authentication and message validation, while the relay primarily provides message transport.</p>
+<article class="card reveal">
+  <b>01</b>
+  <h3>Client-side encryption</h3>
+  <p>
+    Messages are encrypted before they leave the client
+    and remain unreadable to the relay.
+  </p>
 </article>
+
+
+<article class="card reveal">
+  <b>02</b>
+  <h3>Cryptographic identity</h3>
+  <p>
+    Users can verify identities through cryptographic
+    fingerprints and authenticated messages.
+  </p>
+</article>
+
+
+<article class="card reveal">
+  <b>03</b>
+  <h3>Lightweight relay</h3>
+  <p>
+    The server provides transport infrastructure rather
+    than readable conversation storage.
+  </p>
+</article>
+
+
+<article class="card reveal">
+  <b>04</b>
+  <h3>Replay protection</h3>
+  <p>
+    Authenticated message sequencing helps prevent
+    previously accepted messages from being replayed.
+  </p>
+</article>
+
 </div>
+
 </section>
+
+
+<!-- SECURITY -->
+<section id="security" class="security">
+
+<div class="wrap security-grid">
+
+<div class="heading reveal">
+
+<div class="eyebrow">
+  SECURITY MODEL
+</div>
+
+<h2>
+  Trust is established by the clients.
+</h2>
+
+<p>
+  Sivr separates transport from trust.
+  The relay forwards packets while encryption,
+  identity verification and message validation
+  remain client-side.
+</p>
+
+</div>
+
+
+<div class="flow reveal">
+
+<div>
+  <b>01</b>
+  <span>Establish trust</span>
+</div>
+
+<i></i>
+
+<div>
+  <b>02</b>
+  <span>Encrypt locally</span>
+</div>
+
+<i></i>
+
+<div>
+  <b>03</b>
+  <span>Relay ciphertext</span>
+</div>
+
+<i></i>
+
+<div>
+  <b>04</b>
+  <span>Verify &amp; decrypt</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TECHNICAL OVERVIEW -->
+<section id="technical" class="section wrap">
+
+<div class="heading reveal">
+
+<div class="eyebrow">
+  TECHNICAL OVERVIEW
+</div>
+
+<h2>
+  Security lives inside the client.
+</h2>
+
+<p>
+  SIVR extends the hack.chat protocol through an
+  application-layer secure messaging protocol implemented
+  entirely inside the client.
+</p>
+
+</div>
+
+
+<div class="technical-layout">
+
+<div class="technical-copy reveal">
+
+<p>
+  The protocol is designed to operate transparently over
+  the standard hack.chat transport, allowing secure clients
+  to communicate without requiring any changes to the
+  existing server implementation.
+</p>
+
+<p>
+  Every encrypted message is authenticated before being
+  displayed. Invalid signatures, replayed packets from
+  trusted peers, malformed packets, and failed decryptions
+  are rejected before reaching the user interface.
+</p>
+
+</div>
+
+
+<div class="technical-grid">
+
+<article class="tech-card reveal">
+  <span class="tech-number">01</span>
+  <h3>AES-256-GCM</h3>
+  <p>
+    End-to-end encrypted messaging using authenticated
+    AES-256-GCM encryption.
+  </p>
+</article>
+
+
+<article class="tech-card reveal">
+  <span class="tech-number">02</span>
+  <h3>Ed25519</h3>
+  <p>
+    Digital signatures provide sender authentication
+    and message integrity.
+  </p>
+</article>
+
+
+<article class="tech-card reveal">
+  <span class="tech-number">03</span>
+  <h3>Stable identity</h3>
+  <p>
+    Client identity is backed by persistent cryptographic
+    keys rather than temporary session identifiers.
+  </p>
+</article>
+
+
+<article class="tech-card reveal">
+  <span class="tech-number">04</span>
+  <h3>TOFU verification</h3>
+  <p>
+    Trust-On-First-Use fingerprint verification allows
+    clients to establish and recognize trusted peers.
+  </p>
+</article>
+
+
+<article class="tech-card reveal">
+  <span class="tech-number">05</span>
+  <h3>Replay protection</h3>
+  <p>
+    Trusted peer sequence tracking prevents previously
+    accepted packets from being replayed.
+  </p>
+</article>
+
+
+<article class="tech-card reveal">
+  <span class="tech-number">06</span>
+  <h3>Secure presence</h3>
+  <p>
+    Presence discovery is authenticated so clients can
+    identify trusted peers securely.
+  </p>
+</article>
+
+
+<article class="tech-card reveal">
+  <span class="tech-number">07</span>
+  <h3>State recovery</h3>
+  <p>
+    Automatic reconnection restores client state after
+    temporary transport interruptions.
+  </p>
+</article>
+
+
+<article class="tech-card reveal">
+  <span class="tech-number">08</span>
+  <h3>Verified rendering</h3>
+  <p>
+    Markdown content is rendered only after successful
+    authentication and decryption.
+  </p>
+</article>
+
+</div>
+
+</div>
+
+
+<div class="security-note reveal">
+
+<div class="security-note-icon">
+  ✓
+</div>
+
+<div>
+
+<h3>
+  No server-side cryptography.
+</h3>
+
+<p>
+  SIVR requires no cryptographic processing or protocol
+  modifications on the server. Encryption, authentication,
+  identity verification, replay protection and message
+  validation remain inside the client.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DOWNLOADS -->
+<section id="downloads" class="downloads">
+
+<div class="wrap">
+
+<div class="heading reveal">
+
+<div class="eyebrow">
+  DOWNLOADS
+</div>
+
+<h2>
+  Take Sivr with you.
+</h2>
+
+<p>
+  Secure communication across your devices.
+  Choose your platform below.
+</p>
+
+</div>
+
+
+<div class="download-grid">
+
+
+<!-- ANDROID -->
+<article class="download-card reveal">
+
+<div class="platform-icon android-icon">
+  <span>◆</span>
+</div>
+
+<div class="download-info">
+
+<div class="platform-label">
+  MOBILE
+</div>
+
+<h3>
+  Android
+</h3>
+
+<p>
+  Sivr for Android devices.
+</p>
+
+</div>
+
+<a
+  class="download-btn"
+  href="#"
+  aria-label="Download Sivr for Android"
+>
+  <span>Download</span>
+  <span class="download-arrow">↓</span>
+</a>
+
+</article>
+
+
+<!-- MACOS -->
+<article class="download-card reveal">
+
+<div class="platform-icon mac-icon">
+  <span>●</span>
+</div>
+
+<div class="download-info">
+
+<div class="platform-label">
+  DESKTOP
+</div>
+
+<h3>
+  macOS
+</h3>
+
+<p>
+  Sivr for Apple Mac computers.
+</p>
+
+</div>
+
+<a
+  class="download-btn"
+  href="#"
+  aria-label="Download Sivr for macOS"
+>
+  <span>Download</span>
+  <span class="download-arrow">↓</span>
+</a>
+
+</article>
+
+
+<!-- WINDOWS -->
+<article class="download-card reveal">
+
+<div class="platform-icon windows-icon">
+  <span>⊞</span>
+</div>
+
+<div class="download-info">
+
+<div class="platform-label">
+  DESKTOP
+</div>
+
+<h3>
+  Windows
+</h3>
+
+<p>
+  Sivr for Windows computers.
+</p>
+
+</div>
+
+<a
+  class="download-btn"
+  href="#"
+  aria-label="Download Sivr for Windows"
+>
+  <span>Download</span>
+  <span class="download-arrow">↓</span>
+</a>
+
+</article>
+
+
+</div>
+
+<div class="download-note reveal">
+  <span>●</span>
+  Official builds will be available soon.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- README -->
+<section id="readme" class="section wrap">
+
+<div class="heading reveal">
+
+<div class="eyebrow">
+  README
+</div>
+
+<h2>
+  Sivr in brief.
+</h2>
+
+</div>
+
+
+<div class="readme reveal">
+
+<div class="bar">
+
+<span></span>
+<span></span>
+<span></span>
+
+<button id="copy">
+  Copy
+</button>
+
+</div>
+
+
+<article id="readmeText">
+
+<h3>
+  Sivr
+</h3>
+
+
+<p>
+  Sivr is a privacy-focused, end-to-end encrypted chat
+  client built on top of a lightweight relay-based
+  infrastructure. It is designed to provide secure,
+  authenticated communication while keeping message
+  content inaccessible to the relay server.
+</p>
+
+
+<p>
+  The project places emphasis on client-side security,
+  cryptographic identity verification, and protection
+  against message replay and unauthorized access.
+  Sivr is designed as a lightweight and independent
+  communication layer for private, trusted environments
+  where control over the client and its security model
+  is essential.
+</p>
+
+
+<h4>
+  Core principles
+</h4>
+
+<ul>
+
+<li>
+  Messages are encrypted before transmission.
+</li>
+
+<li>
+  Cryptographic identities can be verified through
+  fingerprints.
+</li>
+
+<li>
+  The relay transports encrypted data without requiring
+  readable message content.
+</li>
+
+<li>
+  Message sequencing provides replay protection.
+</li>
+
+<li>
+  Security-sensitive operations remain client-side.
+</li>
+
+</ul>
+
+
+<h4>
+  Architecture
+</h4>
+
+<p>
+  Sivr uses a client-centric security model. The client
+  handles identity, encryption, authentication and
+  message validation, while the relay primarily provides
+  message transport.
+</p>
+
+
+<h4>
+  Technical Overview
+</h4>
+
+<p>
+  SIVR extends the hack.chat protocol through an
+  application-layer secure messaging protocol implemented
+  entirely inside the client.
+</p>
+
+<ul>
+
+<li>
+  End-to-end AES-256-GCM encrypted messaging.
+</li>
+
+<li>
+  Ed25519 digital signatures for sender authentication.
+</li>
+
+<li>
+  Stable client identity backed by persistent
+  cryptographic keys.
+</li>
+
+<li>
+  Trust-On-First-Use (TOFU) fingerprint verification.
+</li>
+
+<li>
+  Replay attack protection using trusted peer sequence tracking.
+</li>
+
+<li>
+  Authenticated secure presence discovery.
+</li>
+
+<li>
+  Automatic reconnection with state recovery.
+</li>
+
+<li>
+  Markdown rendering after successful verification
+  and decryption.
+</li>
+
+<li>
+  No server-side cryptography or protocol modifications.
+</li>
+
+</ul>
+
+
+<p>
+  Every encrypted message is authenticated before being
+  displayed. Invalid signatures, replayed packets from
+  trusted peers, malformed packets, and failed decryptions
+  are rejected before reaching the user interface.
+</p>
+
+
+<p>
+  The protocol is designed to operate transparently over
+  the standard hack.chat transport, allowing secure clients
+  to communicate without requiring any changes to the
+  existing server implementation.
+</p>
+
+</article>
+
+</div>
+
+</section>
+
 </main>
 
-<footer><div class="wrap foot"><span>© <span id="year"></span> Sivr</span><span>Private communication, client-side.</span></div></footer>
+
+<footer>
+
+<div class="wrap foot">
+
+<span>
+  © <span id="year"></span> Sivr
+</span>
+
+<span>
+  Private communication, client-side.
+</span>
+
+</div>
+
+</footer>
+
+
 <script src="script.js"></script>
+
 </body>
 </html>
