@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
-    <title>Prismatic Lab</title>
+    <title>Veil</title>
 
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
@@ -24,8 +24,9 @@
     >
     <meta
         name="apple-mobile-web-app-title"
-        content="Prismatic Lab"
+        content="Veil"
     >
+
     <link
         rel="apple-touch-icon"
         href="/icons/icon-192.png"
@@ -67,7 +68,7 @@
     const iframe = document.getElementById("app");
 
     /*
-     * Messages coming from the embedded application.
+     * Handle messages from the embedded application.
      */
     window.addEventListener("message", (event) => {
         if (event.origin !== APP_ORIGIN) {
@@ -113,11 +114,12 @@
     });
 
     /*
-     * Service Worker
+     * Register Service Worker.
      */
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-            navigator.serviceWorker.register("/sw.js")
+            navigator.serviceWorker
+                .register("/sw.js")
                 .catch((error) => {
                     console.error(
                         "Service Worker registration failed:",
