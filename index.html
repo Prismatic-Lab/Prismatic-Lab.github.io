@@ -38,10 +38,6 @@
 
 <script>
     const iframe = document.getElementById("app");
-
-    /*
-     * پیام‌هایی که از برنامه Railway می‌آیند.
-     */
     window.addEventListener("message", (event) => {
 
         if (
@@ -56,11 +52,6 @@
         if (!data || typeof data !== "object") {
             return;
         }
-
-        /*
-         * اگر برنامه Railway اعلام کرد که باید
-         * یک سایت خارجی باز شود، آن را در تب جدید باز کن.
-         */
         if (data.type === "external-navigation") {
 
             const url = data.url;
@@ -71,10 +62,6 @@
 
             try {
                 const target = new URL(url);
-
-                /*
-                 * فقط URLهای http/https را قبول کن.
-                 */
                 if (
                     target.protocol !== "http:" &&
                     target.protocol !== "https:"
