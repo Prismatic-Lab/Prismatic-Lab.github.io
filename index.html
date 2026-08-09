@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>veil</title>
+    <title>Prismatic Lab</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         html,
         body {
             width: 100%;
@@ -18,142 +17,85 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background: #fff;
         }
 
-        #frame {
-            display: block;
+        iframe {
             width: 100%;
             height: 100%;
             border: 0;
-        }
-
-        #error {
-            display: none;
-            position: fixed;
-            inset: 0;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 12px;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: #fff;
-            color: #222;
-            padding: 30px;
-        }
-
-        #error button {
-            border: 0;
-            border-radius: 8px;
-            padding: 10px 18px;
-            cursor: pointer;
-            background: #222;
-            color: white;
+            display: block;
         }
     </style>
 </head>
 
 <body>
 
-    <iframe
-        id="frame"
-        src="https://rcp-production-5e36.up.railway.app/"
-        allow="fullscreen"
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-
-    <div id="error">
-        <h2>Unable to display the website</h2>
-
-        <p>
-            The target website does not allow itself to be embedded
-            in an iframe.
-        </p>
-
-        <button onclick="window.open('https://rcp-production-5e36.up.railway.app/', '_blank')">
-            Open website
-        </button>
-    </div>
+<iframe
+    id="app"
+    src="https://rcp-production-5e36.up.railway.app/"
+    allow="fullscreen"
+></iframe>
 
 <script>
-(function () {
-
-    const frame = document.getElementById("frame");
-    const error = document.getElementById("error");
+    const iframe = document.getElementById("app");
 
     /*
-     * دامنه‌ای که می‌خواهیم داخل iframe باقی بماند.
+     * پیام‌هایی که از برنامه Railway می‌آیند.
      */
-    const ALLOWED_HOST = "rcp-production-5e36.up.railway.app";
+    window.addEventListener("message", (event) => {
 
-    /*
-     * جلوگیری از بعضی navigationهای خارج از iframe
-     * در صورتی که همان-origin باشد.
-     */
-    frame.addEventListener("load", function () {
+        if (
+            event.origin !==
+            "https://rcp-production-5e36.up.railway.app"
+        ) {
+            return;
+        }
 
-        try {
+        const data = event.data;
 
-            const currentURL =
-                frame.contentWindow.location.href;
+        if (!data || typeof data !== "object") {
+            return;
+        }
 
-            const url =
-                new URL(currentURL);
+        /*
+         * اگر برنامه Railway اعلام کرد که باید
+         * یک سایت خارجی باز شود، آن را در تب جدید باز کن.
+         */
+        if (data.type === "external-navigation") {
 
-            /*
-             * اگر navigation به دامنه دیگری انجام شده باشد،
-             * آن را در تب جدید باز می‌کنیم.
-             */
-            if (
-                url.hostname !== ALLOWED_HOST &&
-                !url.hostname.endsWith("." + ALLOWED_HOST)
-            ) {
+            const url = data.url;
+
+            if (typeof url !== "string") {
+                return;
+            }
+
+            try {
+                const target = new URL(url);
+
+                /*
+                 * فقط URLهای http/https را قبول کن.
+                 */
+                if (
+                    target.protocol !== "http:" &&
+                    target.protocol !== "https:"
+                ) {
+                    return;
+                }
 
                 window.open(
-                    url.href,
+                    target.href,
                     "_blank",
                     "noopener,noreferrer"
                 );
 
-                /*
-                 * برگرداندن iframe به صفحه اصلی
-                 */
-                frame.src = "https://" + ALLOWED_HOST + "/";
-
+            } catch (e) {
+                console.error(
+                    "Invalid navigation URL:",
+                    url
+                );
             }
-
-        } catch (e) {
-
-            /*
-             * اینجا معمولاً Same-Origin Policy فعال شده است.
-         *
-         * یعنی ABC.COM دامنه متفاوتی با GitHub Pages دارد
-         * و مرورگر اجازه خواندن URL داخل iframe را نمی‌دهد.
-         *
-         * بنابراین هیچ تلاش دیگری برای خواندن
-         * contentWindow.location انجام نمی‌دهیم.
-         */
-
-            console.log(
-                "Cross-origin iframe: navigation cannot be inspected."
-            );
         }
-
     });
-
-    /*
-     * اگر iframe به هر دلیلی نتواند صفحه را load کند،
-     * یک fallback نمایش می‌دهیم.
-     */
-    frame.addEventListener("error", function () {
-
-        frame.style.display = "none";
-        error.style.display = "flex";
-
-    });
-
-})();
 </script>
 
 </body>
