@@ -1,134 +1,264 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
-
-    <title>Veil</title>
-
-    <!-- PWA -->
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
-
-    <meta name="theme-color" content="#0b0b0f">
-
-    <!-- iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta
-        name="apple-mobile-web-app-status-bar-style"
-        content="black-translucent"
-    >
-    <meta
-        name="apple-mobile-web-app-title"
-        content="Veil"
-    >
-
-    <link
-        rel="apple-touch-icon"
-        href="/icons/icon-192.png"
-    >
-
-    <style>
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background: #0b0b0f;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            height: 100dvh;
-            border: 0;
-            display: block;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#fffaf2">
+<meta name="description" content="کاتالوگ هوشمند سامانه کنترل و اتوماسیون اقلیم گلخانه اقلیم‌بان PMC-EB2">
+<title>اقلیم‌بان | PMC-EB2 | پارس متریک کنترل</title>
+<style>
+:root{
+  --bg:#FDF5E9;--panel:#fffaf2;--panel2:#f8ead8;--line:#e7d5be;
+  --text:#2b2118;--muted:#756858;--green:#E77D24;--green2:#2da96a;
+  --lime:#e7a04f;--orange:#E77D24;--red:#ed6b67;--cyan:#62cfe3;
+  --shadow:0 24px 70px rgba(93,62,35,.16);--radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+ radial-gradient(circle at 80% 0%,rgba(231,125,36,.10),transparent 28rem),
+ radial-gradient(circle at 0% 60%,rgba(76,158,176,.06),transparent 25rem),
+ var(--bg);color:var(--text);font-family:Tahoma,"Segoe UI",sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.progress{position:fixed;top:0;right:0;height:3px;width:0;background:linear-gradient(90deg,var(--green),var(--lime));z-index:1000}
+.app{display:flex;min-height:100vh}
+.sidebar{position:fixed;right:0;top:0;bottom:0;width:290px;padding:24px 18px;background:rgba(253,245,233,.94);backdrop-filter:blur(18px);border-left:1px solid var(--line);z-index:100;overflow:auto}
+.brand{display:flex;align-items:center;gap:12px;padding:8px 10px 24px;border-bottom:1px solid var(--line);margin-bottom:15px}
+.logo{width:45px;height:45px;border-radius:14px;background:linear-gradient(145deg,#f7e7d3,#fffaf2);display:grid;place-items:center;border:1px solid #2a6048;box-shadow:0 0 30px rgba(231,125,36,.12)}
+.logo svg{width:29px}
+.brand b{display:block;font-size:15px}.brand small{color:var(--muted)}
+.nav-title{font-size:11px;color:#8b7662;margin:16px 10px 7px}
+.nav a{display:flex;gap:10px;align-items:center;padding:9px 11px;border-radius:11px;color:#756858;font-size:13px;margin:2px 0}
+.nav a:hover,.nav a.active{background:#f4e4d1;color:#2b2118}
+.nav a span{width:20px;color:var(--green);font-family:monospace}
+.main{width:calc(100% - 290px);margin-right:290px}
+.topbar{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(253,245,233,.84);backdrop-filter:blur(16px);z-index:80}
+.topbar .badge{font-size:12px;color:var(--green);border:1px solid #28523f;padding:4px 9px;border-radius:999px}
+.menu-btn{display:none}
+.container{max-width:1280px;margin:auto;padding:0 5vw}
+section{padding:90px 0;border-bottom:1px solid rgba(32,55,47,.65)}
+.hero{min-height:calc(100vh - 70px);display:grid;align-items:center;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:55px;align-items:center}
+.kicker{color:var(--green);font-size:13px;letter-spacing:.5px;margin-bottom:12px}
+h1{font-size:clamp(42px,6vw,82px);line-height:1.02;margin:0 0 20px;letter-spacing:-2px}
+h2{font-size:clamp(28px,4vw,45px);line-height:1.15;margin:0 0 14px}
+h3{margin:0 0 8px}
+.lead{font-size:18px;color:#66594d;max-width:680px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0}
+.btn{border:1px solid #d9b995;background:#f4e4d1;padding:11px 17px;border-radius:12px;color:#2b2118;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--green)}
+.btn.primary{background:linear-gradient(135deg,#E77D24,#c96316);border-color:#55c985}
+.hero-visual{min-height:460px;display:grid;place-items:center;position:relative}
+.greenhouse{width:min(560px,100%);aspect-ratio:1.25;border:1px solid #d8b28e;background:linear-gradient(180deg,rgba(32,92,67,.20),rgba(253,245,233,.78));clip-path:polygon(15% 0,85% 0,100% 22%,100% 100%,0 100%,0 22%);position:relative;box-shadow:var(--shadow)}
+.greenhouse:before,.greenhouse:after{content:"";position:absolute;inset:15% 8% 0;border-left:1px solid #32634e;border-right:1px solid #32634e;transform:skewX(-10deg);opacity:.7}
+.greenhouse:after{inset:15% 8% 0;transform:skewX(10deg)}
+.plant-row{position:absolute;bottom:18%;left:9%;right:9%;height:24%;display:flex;justify-content:space-around;align-items:end}
+.plant{width:7%;height:70%;border-radius:50% 50% 20% 20%;background:linear-gradient(90deg,#214e37,#69c77d);position:relative}
+.plant:after{content:"";position:absolute;left:45%;bottom:-30%;width:8%;height:55%;background:#4b8d57}
+.sensor-dot{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 18px rgba(231,125,36,.35)}
+.s1{top:27%;right:28%}.s2{top:46%;left:22%}.s3{top:34%;left:50%}
+.floating{position:absolute;background:rgba(255,250,242,.96);border:1px solid #315746;border-radius:14px;padding:10px 13px;box-shadow:0 14px 40px rgba(93,62,35,.15);font-size:11px}
+.f1{right:-2%;top:12%}.f2{left:-4%;bottom:18%}.f3{right:9%;bottom:4%}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.stat{background:rgba(15,31,25,.75);border:1px solid var(--line);padding:17px;border-radius:17px}
+.stat strong{display:block;font-size:25px;color:var(--green)}.stat span{font-size:11px;color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:32px}
+.section-no{font:12px monospace;color:#8d7864}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{background:linear-gradient(145deg,rgba(17,34,27,.9),rgba(10,23,18,.9));border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.13)}
+.card .icon{width:40px;height:40px;border-radius:12px;background:#142d23;color:var(--green);display:grid;place-items:center;margin-bottom:14px}
+.card p{color:var(--muted);font-size:13px;margin-bottom:0}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}.tag{font-size:10px;padding:4px 8px;border-radius:999px;border:1px solid #d8b999;color:#795f49}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center}
+.diagram{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:#fffaf2}
+.flow{display:flex;flex-direction:row-reverse;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+.node{min-width:115px;padding:14px 10px;text-align:center;border:1px solid #d5b391;border-radius:15px;background:#f8ead8;font-size:12px}
+.node b{display:block;color:var(--green);font-size:13px}.arrow{color:#587b6b}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}.tab{cursor:pointer;border:1px solid var(--line);background:#fffaf2;color:#756858;border-radius:10px;padding:8px 12px;font-size:12px}.tab.active{background:#f0dcc5;color:#2b2118;border-color:#d97820}
+.tab-content{display:none}.tab-content.active{display:block}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:12px}th,td{padding:13px 15px;border-bottom:1px solid var(--line);text-align:right}th{color:var(--green);background:#f3e2cc}td{color:#66594d}tr:last-child td{border-bottom:0}
+.dashboard{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.chart-card{min-height:300px}
+.chart{height:230px;display:flex;align-items:end;gap:5px;padding:20px 5px 5px;border-bottom:1px solid #dbc6ad}
+.bar{flex:1;background:linear-gradient(180deg,var(--green),#d86f1d);border-radius:5px 5px 0 0;min-height:15px;opacity:.82;transition:.4s}
+.chart-labels{display:flex;justify-content:space-between;color:#8d7864;font-size:9px;padding-top:8px}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kpi div{border:1px solid var(--line);padding:16px;border-radius:15px}.kpi strong{font-size:23px;color:var(--lime);display:block}
+.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}.media{min-height:150px;border:1px solid #d5b391;border-radius:18px;background:linear-gradient(135deg,#f3e2cc,#08120f);position:relative;overflow:hidden;display:grid;place-items:center;cursor:pointer}.media:first-child{grid-row:span 2}.media:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(231,125,36,.08);filter:blur(5px)}.media span{z-index:1;color:#66594d;font-size:12px}.play{width:48px;height:48px;border:1px solid #d98736;border-radius:50%;display:grid;place-items:center;margin-bottom:8px;color:var(--green)}
+.alert{border-right:3px solid var(--orange);padding:13px 16px;background:#fff0dd;border-radius:10px;color:#d7c8ac;font-size:12px}
+.cta{background:linear-gradient(135deg,#102a20,#0b1813);border:1px solid #d5ae88;border-radius:28px;padding:45px;display:flex;justify-content:space-between;gap:30px;align-items:center}
+footer{padding:35px 0;color:#8c7764;font-size:11px}
+.modal{position:fixed;inset:0;background:rgba(80,50,25,.45);backdrop-filter:blur(8px);display:none;place-items:center;z-index:500;padding:20px}.modal.open{display:grid}.modal-box{width:min(760px,100%);background:#fffaf2;border:1px solid #cf9f70;border-radius:22px;padding:25px;box-shadow:var(--shadow)}.close{float:left;cursor:pointer;background:none;border:0;color:#9bb3a8;font-size:25px}.fake-video{height:330px;border-radius:16px;background:radial-gradient(circle,#f1d6b8,#FDF5E9 70%);display:grid;place-items:center;margin-top:12px}
+.reveal{opacity:0;transform:translateY(18px);transition:.65s}.reveal.visible{opacity:1;transform:none}
+@media(max-width:1000px){.sidebar{transform:translateX(100%);transition:.3s}.sidebar.open{transform:none}.main{width:100%;margin:0}.menu-btn{display:block;border:1px solid var(--line);background:#fffaf2;color:var(--text);border-radius:9px;padding:6px 10px;cursor:pointer}.hero-grid,.split,.dashboard{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.topbar{padding:0 20px}.container{padding:0 20px}.hero{padding-top:30px}.gallery{grid-template-columns:1fr 1fr}.media:first-child{grid-row:auto;grid-column:span 2}}
+@media(max-width:600px){h1{font-size:43px}.lead{font-size:15px}.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.section-head{display:block}.cta{display:block;padding:28px}.gallery{grid-template-columns:1fr}.media:first-child{grid-column:auto}.hero-visual{min-height:350px}.greenhouse{width:100%}}
+</style>
 </head>
-
 <body>
+<div class="progress" id="progress"></div>
 
-<iframe
-    id="app"
-    src="https://rcp-production-5e36.up.railway.app/"
-    allow="fullscreen"
-></iframe>
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">
+      <svg viewBox="0 0 40 40" fill="none"><path d="M7 29V14l13-8 13 8v15" stroke="#E77D24" stroke-width="2"/><path d="M12 29V18h16v11M20 6v23M7 29h26" stroke="#e7a04f" stroke-width="1.5"/><path d="M14 24c2-4 4-5 6-1 2-5 5-5 7-1" stroke="#E77D24" stroke-width="1.5"/></svg>
+    </div>
+    <div><b>پارس متریک کنترل</b><small>Smart Greenhouse Systems</small></div>
+  </div>
+  <div class="nav-title">فهرست کاتالوگ</div>
+  <nav class="nav">
+    <a href="#home"><span>00</span>معرفی</a>
+    <a href="#concept"><span>01</span>Concept</a>
+    <a href="#productivity"><span>02</span>بهره‌وری گلخانه</a>
+    <a href="#control"><span>03</span>کنترل و شبکه</a>
+    <a href="#engineering"><span>04</span>مهندسی و تنظیمات</a>
+    <a href="#cost"><span>05</span>مدیریت هزینه</a>
+    <a href="#maintenance"><span>06</span>نگهداری و مانیتورینگ</a>
+    <a href="#digital"><span>07</span>تحول دیجیتال</a>
+    <a href="#security"><span>08</span>اتصال و هشدار</a>
+    <a href="#architecture"><span>09</span>ساختار سیستم</a>
+    <a href="#specs"><span>10</span>مشخصات فنی</a>
+    <a href="#media"><span>11</span>رسانه</a>
+    <a href="#support"><span>12</span>پشتیبانی</a>
+  </nav>
+</aside>
 
-<script>
-    const APP_ORIGIN =
-        "https://rcp-production-5e36.up.railway.app";
+<main class="main">
+<header class="topbar">
+  <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰ فهرست</button>
+  <span>کاتالوگ هوشمند / PMC-EB2</span>
+  <span class="badge">MADE IN IRAN</span>
+</header>
 
-    const iframe = document.getElementById("app");
+<section class="hero" id="home">
+<div class="container hero-grid">
+  <div class="reveal">
+    <div class="kicker">PARSMETRIC CONTROL · GREENHOUSE AUTOMATION</div>
+    <h1>اقلیم‌بان</h1>
+    <p class="lead">سامانه هوشمند کنترل و اتوماسیون اقلیم گلخانه؛ برای مدیریت دو بخش مستقل از یک سالن، با پایش، کنترل، ثبت سابقه و هشدار از راه دور.</p>
+    <div class="actions">
+      <a class="btn primary" href="#specs">مشاهده مشخصات</a>
+      <a class="btn" href="#architecture">معماری سیستم</a>
+      <button class="btn" onclick="openModal('video')">▶ مشاهده ویدئو</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>۲</strong><span>سالن مستقل</span></div>
+      <div class="stat"><strong>۱۶</strong><span>هیتر، کنترل مرحله‌ای</span></div>
+      <div class="stat"><strong>۱۰</strong><span>ورودی دما/رطوبت</span></div>
+      <div class="stat"><strong>۳۰ روز</strong><span>سابقه نمودار اقلیم</span></div>
+    </div>
+  </div>
+  <div class="hero-visual reveal">
+    <div class="greenhouse">
+      <div class="sensor-dot s1"></div><div class="sensor-dot s2"></div><div class="sensor-dot s3"></div>
+      <div class="plant-row"><i class="plant"></i><i class="plant"></i><i class="plant"></i><i class="plant"></i><i class="plant"></i><i class="plant"></i><i class="plant"></i><i class="plant"></i></div>
+    </div>
+    <div class="floating f1">● دمای سالن <b style="color:var(--green)">24.8°C</b></div>
+    <div class="floating f2">رطوبت نسبی <b style="color:var(--cyan)">71%</b></div>
+    <div class="floating f3">تهویه طبیعی <b style="color:var(--lime)">ACTIVE</b></div>
+  </div>
+</div>
+</section>
 
-    /*
-     * Handle messages from the embedded application.
-     */
-    window.addEventListener("message", (event) => {
-        if (event.origin !== APP_ORIGIN) {
-            return;
-        }
+<section id="concept">
+<div class="container">
+<div class="section-head reveal"><div><div class="kicker">01 / CONCEPT</div><h2>از اندازه‌گیری تا کنترل</h2></div><div class="section-no">MEASURE → DECIDE → CONTROL → MONITOR</div></div>
+<div class="grid">
+  <article class="card reveal"><div class="icon">⌁</div><h3>اندازه‌گیری</h3><p>داده‌های دما، رطوبت و باد از محیط گلخانه دریافت می‌شوند تا وضعیت واقعی سالن در اختیار سیستم باشد.</p></article>
+  <article class="card reveal"><div class="icon">◈</div><h3>تصمیم‌گیری</h3><p>کنترلر بر اساس حدود تعریف‌شده و منطق کنترل، وضعیت تجهیزات و نیاز اقلیمی را ارزیابی می‌کند.</p></article>
+  <article class="card reveal"><div class="icon">↯</div><h3>کنترل</h3><p>فرمان به هیترها، دمپرها، فن و پد و مه‌پاش ارسال می‌شود تا شرایط به محدوده هدف نزدیک شود.</p></article>
+  <article class="card reveal"><div class="icon">▣</div><h3>مانیتورینگ</h3><p>وضعیت سیستم روی HMI قابل مشاهده است و تاریخچه دما و رطوبت برای بررسی عملکرد ثبت می‌شود.</p></article>
+  <article class="card reveal"><div class="icon">⌁</div><h3>هشدار</h3><p>در شرایط تعریف‌شده مانند قطع برق، خطای مشعل یا خروج دما و رطوبت از محدوده، هشدار ارسال می‌شود.</p></article>
+  <article class="card reveal"><div class="icon">↗</div><h3>دسترسی از راه دور</h3><p>با VNC می‌توان نمای واقعی HMI را از راه دور مشاهده کرد و وضعیت سیستم را سریع‌تر بررسی نمود.</p></article>
+</div>
+</div>
+</section>
 
-        const data = event.data;
+<section id="productivity">
+<div class="container">
+<div class="section-head reveal"><div><div class="kicker">02 / PRODUCTIVITY</div><h2>کنترل اقلیم برای بهره‌وری بیشتر</h2></div></div>
+<div class="split">
+<div class="diagram reveal">
+  <div style="color:var(--green);font-size:12px;margin-bottom:18px">منطق نمونه کنترل تهویه</div>
+  <div class="flow">
+    <div class="node"><b>🌡 سنسور</b>دما / رطوبت</div><div class="arrow">←</div>
+    <div class="node"><b>◈ کنترلر</b>ارزیابی شرایط</div><div class="arrow">←</div>
+    <div class="node"><b>⌁ دمپر</b>تهویه طبیعی</div>
+  </div>
+  <div style="text-align:center;color:#8b7662;font-size:11px;margin:20px 0">در صورت کافی نبودن تهویه طبیعی، سیستم به مرحله مکانیکی می‌رود.</div>
+  <div class="flow">
+    <div class="node"><b>فن + پد</b>خنک‌سازی مکانیکی</div><div class="arrow">←</div>
+    <div class="node"><b>💧 مه‌پاش</b>کنترل رطوبت</div>
+  </div>
+</div>
+<div class="reveal">
+  <h3>اولویت با تهویه طبیعی</h3>
+  <p style="color:var(--muted)">منطق کنترل می‌تواند قبل از فعال‌سازی خنک‌سازی مکانیکی، ظرفیت تهویه طبیعی را در نظر بگیرد. این رویکرد برای مدیریت مصرف انرژی و استفاده بهتر از شرایط محیطی طراحی شده است.</p>
+  <div class="tags"><span class="tag">تهویه طبیعی</span><span class="tag">کنترل مرحله‌ای</span><span class="tag">فن + پد</span><span class="tag">مه‌پاش</span><span class="tag">واکنش به باد</span></div>
+  <div class="alert" style="margin-top:18px">سنسور باد می‌تواند در سرعت‌های تعریف‌شده فرمان بسته‌شدن دمپرهای مشخص را صادر کند. میانگین‌گیری زمانی از واکنش‌های سریع به تندبادهای لحظه‌ای جلوگیری می‌کند.</div>
+</div>
+</div>
+</div>
+</section>
 
-        if (!data || typeof data !== "object") {
-            return;
-        }
+<section id="control">
+<div class="container">
+<div class="section-head reveal"><div><div class="kicker">03 / CONTROL + NETWORK</div><h2>Sequence + Control + Network</h2></div></div>
+<div class="grid">
+<article class="card reveal"><div class="icon">🔥</div><h3>کنترل گرمایش</h3><p>تا ۱۶ هیتر در چند مرحله کنترل می‌شوند تا ظرفیت گرمایشی متناسب با نیاز محیط وارد مدار شود.</p></article>
+<article class="card reveal"><div class="icon">↕</div><h3>کنترل تهویه</h3><p>دمپرها و مسیرهای تهویه بر اساس شرایط اقلیمی و منطق تعریف‌شده مدیریت می‌شوند.</p></article>
+<article class="card reveal"><div class="icon">❄</div><h3>خنک‌سازی</h3><p>کنترل ترکیبی فن و پد برای زمانی که تهویه طبیعی به‌تنهایی پاسخ‌گو نیست.</p></article>
+<article class="card reveal"><div class="icon">💧</div><h3>رطوبت</h3><p>مه‌پاش در زنجیره کنترل اقلیم برای رسیدن به شرایط رطوبتی تعریف‌شده استفاده می‌شود.</p></article>
+<article class="card reveal"><div class="icon">〽</div><h3>سنسور باد</h3><p>سرعت باد و منطق زمانی از بسته‌شدن ناگهانی و مکرر دمپرها در اثر تغییرات لحظه‌ای جلوگیری می‌کند.</p></article>
+<article class="card reveal"><div class="icon">⌁</div><h3>دو سالن مستقل</h3><p>دو بخش مستقل از یک سالن از یک پنل مرکزی مدیریت می‌شوند، در حالی که منطق کنترل هر سالن مستقل است.</p></article>
+</div>
+</div>
+</section>
 
-        if (data.type === "external-navigation") {
-            const url = data.url;
+<section id="engineering">
+<div class="container">
+<div class="section-head reveal"><div><div class="kicker">04 / ENGINEERING</div><h2>یک پنل، یک نقطه کنترل</h2></div></div>
+<div class="split">
+<div class="card reveal">
+<h3>HMI صنعتی ۳.۴ اینچی</h3>
+<p>رابط کاربری صنعتی برای مشاهده وضعیت، پارامترها و اطلاعات کنترلی سیستم. ساختار صفحات HMI باید بر اساس نسخه واقعی نرم‌افزار دستگاه در نسخه نهایی کاتالوگ تکمیل شود.</p>
+<div class="tags"><span class="tag">Industrial HMI</span><span class="tag">Status</span><span class="tag">Parameters</span></div>
+</div>
+<div class="diagram reveal">
+<div class="flow">
+<div class="node"><b>سالن ۱</b>سنسورها + تجهیزات</div>
+<div class="arrow">↘</div>
+<div class="node" style="border-color:var(--green)"><b>PMC-EB2</b>پنل مرکزی</div>
+<div class="arrow">↙</div>
+<div class="node"><b>سالن ۲</b>سنسورها + تجهیزات</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-            if (typeof url !== "string") {
-                return;
-            }
+<section id="cost">
+<div class="container">
+<div class="section-head reveal"><div><div class="kicker">05 / COST MANAGEMENT</div><h2>مدیریت بهتر، خطای کمتر</h2></div></div>
+<div class="grid">
+<div class="card reveal"><h3>مدیریت متمرکز</h3><p>کنترل دو سالن از یک پنل، رفت‌وآمد و بررسی دستی تجهیزات را کاهش می‌دهد.</p></div>
+<div class="card reveal"><h3>استفاده هدفمند از تجهیزات</h3><p>کنترل مرحله‌ای گرمایش و اولویت‌دهی به تهویه طبیعی، امکان استفاده متناسب‌تر از تجهیزات را فراهم می‌کند.</p></div>
+<div class="card reveal"><h3>واکنش سریع به خطا</h3><p>هشدار تماس و SMS باعث می‌شود اپراتور برای مشاهده خطا وابسته به حضور فیزیکی در محل نباشد.</p></div>
+</div>
+</div>
+</section>
 
-            try {
-                const target = new URL(url);
-
-                if (
-                    target.protocol !== "http:" &&
-                    target.protocol !== "https:"
-                ) {
-                    return;
-                }
-
-                window.open(
-                    target.href,
-                    "_blank",
-                    "noopener,noreferrer"
-                );
-
-            } catch (error) {
-                console.error(
-                    "Invalid navigation URL:",
-                    url
-                );
-            }
-        }
-    });
-
-    /*
-     * Register Service Worker.
-     */
-    if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker
-                .register("/sw.js")
-                .catch((error) => {
-                    console.error(
-                        "Service Worker registration failed:",
-                        error
-                    );
-                });
-        });
-    }
-</script>
-
-</body>
-</html>
+<section id="maintenance">
+<div class="container">
+<div class="section-head reveal"><div><div class="kicker">06 / MAINTENANCE</div><h2>تاریخچه برای عیب‌یابی بهتر</h2></div></div>
+<div class="dashboard">
+<div class="card chart-card reveal">
+<h3>نمونه نمایش روند دما</h3><p style="font-size:11px;color:var(--muted)">این نمودار نمونه نمایشی است؛ داده واقعی در HMI دستگاه نمایش داده می‌شود.</p>
+<div class="chart" id="chart"></div><div class="chart-labels"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+</div>
+<div class="card reveal">
+<h3>شاخص‌های پایش</h3>
+<div class="kpi" style="margin-top:18px">
+<div><strong>30</strong><span>روز سابقه</span></div>
+<div><strong>VNC</strong><span>دسترسی تصویری</span></div>
+<div><strong>SMS</strong><span>هشدار متنی</span></div>
+<div><strong>C
